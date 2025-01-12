@@ -1,0 +1,90 @@
+flowchart TB
+    %% Styling
+    classDef component fill:#85bbf0,stroke:#5d82a8,color:#000
+    classDef external fill:#666,stroke:#0b4884,color:#fff
+    classDef container fill:#23a2d9,stroke:#0e8dc1,color:#fff
+    classDef processor fill:#4caf50,stroke:#1b5e20,color:#fff
+    classDef manager fill:#ff9800,stroke:#c77700,color:#000
+
+    %% Agent Service Components
+    subgraph AgentService[Agent Service]
+        %% Core Agents
+        subgraph CoreAgents[Core Agents]
+            SoMinE[SoMinE Agent]:::component
+            TreeThoughts[Tree of Thoughts<br/>Agent]:::component
+            ChainThought[Chain of Thought<br/>Agent]:::component
+            ReAct[ReAct Agent]:::component
+        end
+
+        %% Coordination Layer
+        subgraph Coordination[Coordination Layer]
+            Coordinator[Agent<br/>Coordinator]:::manager
+            Society[Society of<br/>Mind Manager]:::manager
+        end
+
+        %% State Management
+        subgraph StateManagement[State Management]
+            StateManager[State<br/>Manager]:::manager
+            PhaseManager[Phase<br/>Manager]:::manager
+            TransitionManager[Transition<br/>Manager]:::manager
+        end
+
+        %% Processing Layer
+        subgraph Processors[Processing Layer]
+            InquiryProc[Inquiry<br/>Processor]:::processor
+            InstructionProc[Instruction<br/>Processor]:::processor
+            ReflectionProc[Reflection<br/>Processor]:::processor
+        end
+
+        %% Memory Management
+        subgraph MemoryMgmt[Memory Management]
+            MemoryManager[Memory<br/>Manager]:::manager
+            InsightManager[Insight<br/>Manager]:::manager
+            CacheManager[Cache<br/>Manager]:::manager
+        end
+
+        %% Error Handling
+        subgraph ErrorHandling[Error Handling]
+            ErrorManager[Error<br/>Manager]:::manager
+            FallbackManager[Fallback<br/>Manager]:::manager
+        end
+    end
+
+    %% External Components
+    WebApp[Web Dashboard]:::container
+    TaskProc[Task Processor]:::container
+    DB[(Primary DB)]:::external
+    Cache[(Cache)]:::external
+    LLM[(LLM API)]:::external
+    RAG[(RAG KB)]:::external
+
+    %% Core Agent Relationships
+    Coordinator --> CoreAgents
+    Society --> Coordinator
+
+    %% Processing Flow
+    InquiryProc --> CoreAgents
+    InstructionProc --> CoreAgents
+    ReflectionProc --> CoreAgents
+
+    %% State Management
+    StateManager --> CoreAgents
+    PhaseManager --> StateManager
+    TransitionManager --> StateManager
+
+    %% Memory Management
+    MemoryManager --> CoreAgents
+    InsightManager --> MemoryManager
+    CacheManager --> MemoryManager
+
+    %% Error Handling
+    ErrorManager --> CoreAgents
+    FallbackManager --> ErrorManager
+
+    %% External Connections
+    WebApp --> Coordinator
+    TaskProc --> Coordinator
+    MemoryManager --> DB
+    CacheManager --> Cache
+    CoreAgents --> LLM
+    CoreAgents --> RAG

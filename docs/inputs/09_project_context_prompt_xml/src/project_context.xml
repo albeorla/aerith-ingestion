@@ -1,0 +1,125 @@
+<project-context>
+  <project-name>Todoist and Google Calendar Sync with Agent Integration</project-name>
+  <description>
+    This project aims to create a bidirectional sync system between Todoist, Google Calendar, and a custom agent library. The system will include a Next.js-based UI for managing tasks, calendar events, and agent interactions. The backend will integrate with Todoist and Google Calendar APIs, while the frontend will provide a user-friendly interface for managing these integrations.
+  </description>
+
+  <goals>
+    <goal>Implement bidirectional sync between Todoist and Google Calendar</goal>
+    <goal>Integrate a remote RAG API for context-aware agent interactions</goal>
+    <goal>Build a library of agents with advanced configurations (e.g., SoMinE chain of thought)</goal>
+    <goal>Develop a Next.js UI for managing tasks, calendar events, and agent interactions</goal>
+  </goals>
+
+  <codebase>
+    <directory-structure>
+      <directory name="albeorla-aerith-aerith-ingestion">
+        <file name="README.md">Project documentation and setup instructions</file>
+        <file name="Makefile">Build and run commands</file>
+        <file name="pyproject.toml">Python project configuration</file>
+        <file name=".env.example">Environment variable template</file>
+        <directory name="docs">
+          <file name="FEATURES.md">List of features and completed work</file>
+          <file name="sequence.mmd">Sequence diagram for system flow</file>
+        </directory>
+        <directory name="infra">
+          <directory name="docker">
+            <file name="Dockerfile">Docker configuration</file>
+            <file name=".dockerignore">Docker ignore rules</file>
+          </directory>
+          <directory name="terraform">
+            <file name="main.tf">Terraform infrastructure configuration</file>
+            <file name="setup.sh">Terraform setup script</file>
+            <file name="variables.tf">Terraform variables</file>
+          </directory>
+        </directory>
+        <directory name="src">
+          <directory name="aerith_aerith_ingestion">
+            <file name="__init__.py">Package initialization</file>
+            <file name="config.py">Configuration management</file>
+            <file name="interfaces.py">Interfaces for task storage and API</file>
+            <file name="main.py">Main entry point</file>
+            <file name="models.py">Data models for tasks and events</file>
+            <file name="schemas.py">JSON schema validation</file>
+            <file name="setup.py">Application setup</file>
+            <file name="storage.py">Task storage implementation</file>
+            <file name="task_manager.py">Task management logic</file>
+            <file name="todoist_api.py">Todoist API implementation</file>
+            <file name="aerith_ingestion.py">Todoist ingestion logic</file>
+          </directory>
+        </directory>
+        <directory name=".github">
+          <directory name="workflows">
+            <file name="aws-ecs-deploy.yml">GitHub Actions workflow for AWS ECS deployment</file>
+          </directory>
+        </directory>
+      </directory>
+      <directory name="albeorla-rbac-dashboard">
+        <file name="README.md">Next.js project documentation</file>
+        <file name="eslint.config.mjs">ESLint configuration</file>
+        <file name="next.config.ts">Next.js configuration</file>
+        <file name="package.json">Project dependencies and scripts</file>
+        <file name="postcss.config.mjs">PostCSS configuration</file>
+        <file name="tailwind.config.ts">Tailwind CSS configuration</file>
+        <file name="tsconfig.json">TypeScript configuration</file>
+        <directory name="bin">
+          <file name="generate_tree.py">Script for generating directory trees</file>
+        </directory>
+        <directory name="public">Static assets</directory>
+        <directory name="src">
+          <file name="theme.ts">Chakra UI theme configuration</file>
+          <directory name="app">
+            <file name="layout.tsx">Root layout component</file>
+            <file name="providers.tsx">Chakra UI providers</file>
+            <directory name="dashboard">
+              <file name="page.tsx">Dashboard page</file>
+            </directory>
+            <directory name="roles">
+              <file name="page.tsx">Roles management page</file>
+            </directory>
+            <directory name="settings">
+              <file name="page.tsx">Settings page</file>
+            </directory>
+            <directory name="users">
+              <file name="page.tsx">Users management page</file>
+            </directory>
+          </directory>
+          <directory name="components">
+            <file name="DashboardLayout.tsx">Dashboard layout component</file>
+            <file name="RoleForm.tsx">Role form component</file>
+            <file name="UserForm.tsx">User form component</file>
+          </directory>
+          <directory name="store">
+            <file name="index.ts">State management store</file>
+          </directory>
+        </directory>
+      </directory>
+    </directory-structure>
+  </codebase>
+
+  <next-steps>
+    <step>Integrate Todoist and Google Calendar APIs with the Next.js UI</step>
+    <step>Implement bidirectional sync logic in the backend</step>
+    <step>Set up the RAG API for context-aware agent interactions</step>
+    <step>Build a library of agents with advanced configurations</step>
+    <step>Enhance the UI with real-time updates and notifications</step>
+    <step>Deploy the system using Docker and AWS ECS</step>
+  </next-steps>
+
+  <notes>
+    <note>The UI is built using Next.js, Chakra UI, and Tailwind CSS. The backend uses Python with Docker and Terraform for deployment.</note>
+    <note>The project includes a state management store for managing users, roles, and permissions.</note>
+    <note>The RAG API will be used to provide context-aware responses from agents, integrating with notes and calendar data.</note>
+  </notes>
+
+  <prompt>
+    <instruction>Use this XML prompt to seed a new chat and continue working on the project. The prompt includes the project context, goals, codebase structure, and next steps. You can modify or expand any section as needed.</instruction>
+    <example>
+      To continue working on the project, you can:
+      1. Add new features to the UI by editing the Next.js components.
+      2. Enhance the backend sync logic by modifying the Python code.
+      3. Integrate additional APIs or services as needed.
+      4. Update the deployment configuration for AWS ECS.
+    </example>
+  </prompt>
+</project-context> 

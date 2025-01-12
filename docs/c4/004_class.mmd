@@ -1,0 +1,137 @@
+classDiagram
+    %% Base Classes and Interfaces
+    class BaseAgent {
+        +name: str
+        +description: str
+        -_memory: List
+        +process_input(data: Dict) AgentResponse
+        +manage_memory() void
+        #_validate_input(data: Dict) bool
+        +add_to_memory(entry: Dict) void
+        +get_memory() List
+        +clear_memory() void
+    }
+
+    class ReflectableAgent {
+        +reflect() InsightCollection
+        #_process_reflection() List~Insight~
+    }
+
+    class InquiryProcessorInterface {
+        <<interface>>
+        +generate_questions(context: Any) List~SocratesQuestion~
+    }
+
+    class InstructionProcessorInterface {
+        <<interface>>
+        +process_instruction(context: Any) str
+    }
+
+    class ReflectionProcessorInterface {
+        <<interface>>
+        +perform_reflection() AgentResponse
+    }
+
+    %% Core Agent Implementation
+    class SoMinEAgent {
+        -inquiry_processor: InquiryProcessor
+        -instruction_processor: InstructionProcessor
+        -reflection_processor: ReflectionProcessor
+        -state_manager: SoMinEStateManager
+        -insight_manager: InsightManager
+        +process_phase() PhaseResult
+        +transition_state() bool
+        -_format_questions_response() AgentResponse
+        -_store_insights_in_memory() void
+        +get_memory_insights() List
+    }
+
+    %% Specialized Agents
+    class TreeOfThoughtsAgent {
+        -max_branches: int
+        -max_depth: int
+        +explore_branches() List~Thought~
+        +evaluate_paths() BestPath
+    }
+
+    class ChainOfThoughtAgent {
+        -max_steps: int
+        +process_chain() List~Thought~
+        +generate_conclusion() Conclusion
+    }
+
+    class ReActAgent {
+        -max_iterations: int
+        +reason() Reasoning
+        +act() Action
+        +observe() Observation
+    }
+
+    %% Managers
+    class SoMinEStateManager {
+        -current_state: SoMinEState
+        +transition_to(state: PhaseType) bool
+        +validate_transition(state: PhaseType) bool
+        +start() void
+        +reset() void
+    }
+
+    class InsightManager {
+        +store_insight(insight: Insight) bool
+        +retrieve_insights() List~Insight~
+        +categorize_insight(insight: Insight) Category
+        +get_insights_by_category(category: str) List
+    }
+
+    %% Models
+    class AgentResponse {
+        +content: str
+        +confidence: float
+        +metadata: Dict
+    }
+
+    class SocratesQuestion {
+        +question: str
+        +context: str
+        +purpose: str
+        +timestamp: datetime
+    }
+
+    class PhaseType {
+        <<enumeration>>
+        INQUIRY
+        INSTRUCTION
+        REFLECTION
+        FINAL
+    }
+
+    class SoMinEState {
+        +inquiry_phase: bool
+        +instruction_phase: bool
+        +reflection_phase: bool
+        +final_phase: bool
+        +current_questions: List
+        +gathered_insights: List
+        +processed_insights: Dict
+        +current_phase: PhaseType
+        +last_phase_transition: datetime
+    }
+
+    %% Relationships
+    BaseAgent <|-- ReflectableAgent
+    ReflectableAgent <|-- SoMinEAgent
+    BaseAgent <|-- TreeOfThoughtsAgent
+    BaseAgent <|-- ChainOfThoughtAgent
+    BaseAgent <|-- ReActAgent
+
+    SoMinEAgent --> SoMinEStateManager
+    SoMinEAgent --> InsightManager
+    SoMinEAgent ..> InquiryProcessorInterface
+    SoMinEAgent ..> InstructionProcessorInterface
+    SoMinEAgent ..> ReflectionProcessorInterface
+
+    SoMinEStateManager --> PhaseType
+    SoMinEStateManager --> SoMinEState
+
+    AgentResponse --* BaseAgent
+    SocratesQuestion --* InquiryProcessorInterface

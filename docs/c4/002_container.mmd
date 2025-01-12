@@ -1,0 +1,77 @@
+flowchart TB
+    %% Styling
+    classDef person fill:#08427b,stroke:#073b6f,color:#fff
+    classDef container fill:#23a2d9,stroke:#0e8dc1,color:#fff
+    classDef database fill:#23a2d9,stroke:#0e8dc1,color:#fff
+    classDef external fill:#666,stroke:#0b4884,color:#fff
+    classDef queue fill:#ff9800,stroke:#c77700,color:#000
+
+    %% Nodes
+    User((User<br/>Task Manager)):::person
+    Developer((Developer)):::person
+    
+    subgraph System[Aerith Todoist Ingestion System]
+        %% Frontend Layer
+        WebApp[Web Dashboard<br/>Next.js]:::container
+        
+        %% API Layer
+        API[API Gateway<br/>AWS API Gateway]:::container
+        
+        %% Core Services
+        AgentSvc[Agent Service<br/>Python/FastAPI]:::container
+        TaskProc[Task Processor<br/>Python]:::container
+        MemSys[Memory System<br/>Python/Redis]:::container
+        
+        %% Task Management
+        TaskQueue[Task Queue<br/>Redis]:::queue
+        TaskManager[Task Manager<br/>Python]:::container
+        
+        %% Storage Layer
+        DB[(Primary DB<br/>PostgreSQL)]:::database
+        Cache[(Cache<br/>Redis)]:::database
+        FileStore[(JSON File<br/>Storage)]:::database
+        
+        %% Monitoring
+        Monitor[Monitoring Service<br/>Python]:::container
+        Logger[Logging Service<br/>Python]:::container
+    end
+    
+    %% External Systems
+    Todoist[(Todoist API)]:::external
+    Calendar[(Google Calendar)]:::external
+    LLM[(LLM API)]:::external
+    RAG[(RAG Knowledge<br/>Base)]:::external
+
+    %% Relationships
+    User --> WebApp
+    Developer --> API
+    WebApp --> API
+    
+    %% API Gateway Relations
+    API --> AgentSvc
+    API --> TaskProc
+    API --> TaskManager
+    
+    %% Task Flow
+    TaskProc --> TaskQueue
+    TaskQueue --> TaskManager
+    TaskManager --> DB
+    
+    %% Agent Service Relations
+    AgentSvc --> MemSys
+    AgentSvc --> TaskManager
+    AgentSvc --> LLM
+    AgentSvc --> RAG
+    
+    %% Storage Relations
+    MemSys --> Cache
+    TaskManager --> FileStore
+    
+    %% External Integration
+    TaskProc --> Todoist
+    TaskManager --> Calendar
+    
+    %% Monitoring
+    AgentSvc -.->|Logs| Logger
+    TaskProc -.->|Logs| Logger
+    Logger --> Monitor

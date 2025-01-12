@@ -1,0 +1,63 @@
+# Python cache and build files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environment directories
+.env
+.venv
+venv/
+ENV/
+
+# IDE settings
+.vscode/
+.idea/
+*.swp
+*.code-workspace
+
+# Project-specific files
+data/
+tmp/
+logs/
+.cursorrules
+.cursorignore
+
+# Infrastructure files
+.terraform/
+.terraform.lock.hcl
+
+# Dependency files
+poetry.lock
+
+# Coverage reports
+.coverage
+.pytest_cache
+htmlcov/
+
+# System files
+.DS_Store
+
+# Git files
+.git
+
+# Unit testing files
+.hypothesis
+
+# LlamaIndex storage
+storage/

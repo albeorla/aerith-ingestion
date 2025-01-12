@@ -1,0 +1,33 @@
+flowchart TB
+    %% Styling
+    classDef person fill:#08427b,stroke:#073b6f,color:#fff
+    classDef system fill:#1168bd,stroke:#0b4884,color:#fff
+    classDef external fill:#666,stroke:#0b4884,color:#fff
+    classDef boundary fill:none,stroke:#666,stroke-dasharray: 5 5
+    classDef storage fill:#2196f3,stroke:#0b4884,color:#fff
+
+    %% Nodes
+    User((User Task Manager)):::person
+    Developer((Developer System Admin)):::person
+    
+    subgraph Enterprise[Enterprise Boundary]
+        AerithSystem[Aerith Todoist Ingestion System]:::system
+        DataStore[(Task Storage & Memory)]:::storage
+    end
+    
+    %% External Systems
+    Todoist[(Todoist API)]:::external
+    Calendar[(Google Calendar)]:::external
+    LLM[(LLM API)]:::external
+    RAG[(RAG Knowledge Base)]:::external
+    Monitoring[Monitoring System]:::external
+
+    %% Relationships
+    User -->|Creates & Manages Tasks| AerithSystem
+    Developer -->|Configures & Monitors| AerithSystem
+    AerithSystem -->|Reads/Writes Tasks| Todoist
+    AerithSystem -->|Syncs Events| Calendar
+    AerithSystem -->|Agent Processing| LLM
+    AerithSystem -->|Knowledge Retrieval| RAG
+    AerithSystem -->|Stores| DataStore
+    AerithSystem -->|Metrics & Logging| Monitoring
