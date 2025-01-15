@@ -17,7 +17,6 @@ flowchart TB
     
     %% External Systems
     Todoist[(Todoist API)]:::external
-    Calendar[(Google Calendar)]:::external
     LLM[(LLM API)]:::external
     RAG[(RAG Knowledge Base)]:::external
     Monitoring[Monitoring System]:::external
@@ -26,8 +25,6 @@ flowchart TB
     User -->|Creates & Manages Tasks| AerithSystem
     Developer -->|Configures & Monitors| AerithSystem
     AerithSystem -->|Reads/Writes Tasks| Todoist
-    AerithSystem -->|Syncs Events| Calendar
     AerithSystem -->|Agent Processing| LLM
     AerithSystem -->|Knowledge Retrieval| RAG
     AerithSystem -->|Stores| DataStore
-    AerithSystem -->|Metrics & Logging| Monitoring

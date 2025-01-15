@@ -38,7 +38,7 @@ class RAGAPI:
         """Get completion from the RAG API."""
         try:
             response = await openai.ChatCompletion.acreate(
-                model="gpt-4",
+                model="gpt-4o",
                 messages=[
                     {
                         "role": "system",

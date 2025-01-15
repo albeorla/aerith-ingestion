@@ -61,3 +61,7 @@ htmlcov/
 
 # LlamaIndex storage
 storage/
+
+# Database files
+chroma/
+*.db

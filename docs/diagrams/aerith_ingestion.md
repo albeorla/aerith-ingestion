@@ -3,121 +3,115 @@
 title: aerith_ingestion
 ---
 classDiagram
-    class LoggingAspect {
-        - __init__(self, func) None
-        - __call__(self, *args, **kwargs) R
+    class AppConfig {
+        + ApiConfig api
+        + DatabaseConfig database
+        + EnrichmentConfig enrichment
+        + LoggingConfig logging
     }
 
-    class LogConfig {
-        + setup_logging(self) None
-        + ensure_log_path(self) None
-    }
-
-    class APIConfig {
-        + get_api_token(self) str
-    }
-
-    class VectorStoreSettings {
-        + str collection_name
-        + str embedding_model
-        + int batch_size
-        + int similarity_top_k
-        + Optional[str] persist_directory
-        + Dict[str, Any] chroma_settings
-        + validate_embedding_model(cls, v) str
-    }
-
-    class Settings {
-        + str openai_api_key
-        + str todoist_api_token
-        + str environment
-        + bool debug
+    class LoggingConfig {
         + str log_path
         + str log_level
         + str log_format
-        + str trace_log_format
-        + str error_log_format
-        + VectorStoreSettings vector_store
-        + setup_logging(self) None
-        + ensure_log_path(self) None
-        + get_api_token(self) str
-        + set_log_level(cls, v, values) str
-        - __init__(self, **kwargs) None
+        + str error_format
+        + str console_format
     }
 
-    class StorageType {
-        + JSON
+    class EnrichmentConfig {
+        + int batch_size
+        + int similarity_top_k
     }
 
-    class ServiceConfig {
-        + StorageType storage_type
-        + str storage_path
-        + ProjectOperations project_operations
+    class TodoistApiConfig {
+        + str api_key
     }
 
-    class TodoistServiceFactory {
-        + @staticmethod create_repository(config) ProjectRepository
-        + @classmethod create_service(cls, settings, service_config) TodoistService
+    class OpenAIConfig {
+        + str api_key
+        + str model
+        + float temperature
+        + int max_tokens
+        + str embedding_model
+        + Optional[str] vector_index_path
     }
 
-    class TracedClass {
-        - __init_subclass__(cls) None
+    class ApiConfig {
+        + TodoistApiConfig todoist
+        + OpenAIConfig openai
     }
 
-    class BaseService {
-        - __init__(self, func) None
-        - __call__(self, *args, **kwargs) R
+    class SQLiteConfig {
+        + str database_path
+        + bool echo
     }
 
-    class JSONProjectRepository {
-        - __init__(self, file_path) None
-        + save(self, projects) None
+    class DatabaseConfig {
+        + SQLiteConfig sqlite
     }
 
-    class EnrichedTaskRepository {
-        - __init__(self, storage_dir) None
-        + save(self, enriched_task) None
-        + get_by_id(self, task_id) Optional[EnrichedTask]
-        + get_all_processed_tasks(self) Dict[str, datetime]
-        - _task_to_dict(self, task) dict
-        - _project_to_dict(self, project) dict
-        - _dict_to_task(self, data) Task
-        - _dict_to_project(self, data) Project
+    class Database {
+        - __init__(self, db_path) None
+        - _init_db(self) None
+        + get_connection(self) sqlite3.Connection
     }
 
-    class ViewStyle {
-        + str LIST
-        + str BOARD
-        + str CALENDAR
+    class SQLiteProjectRepository {
+        - __init__(self, database) None
+        + save(self, project) None
+        + save_all(self, projects) None
+        + get_by_id(self, project_id) Optional[Project]
+        + get_all(self) List[Project]
+        + delete(self, project_id) None
+        + delete_all(self) None
     }
 
-    class TaskPriority {
-        + int NONE
-        + int LOW
-        + int MEDIUM
-        + int HIGH
+    class SQLiteTaskRepository {
+        - __init__(self, database) None
+        + save(self, task) None
+        + save_all(self, tasks) None
+        + get_by_id(self, task_id) Optional[Task]
+        + get_all(self) List[Task]
+        + get_by_project_id(self, project_id) List[Task]
+        + delete(self, task_id) None
+        + delete_all(self) None
     }
 
-    class TaskStats {
-        + int total
-        + int completed
-        + int overdue
-        + int high_priority
-        + int has_due_date
-        + float completion_rate
+    class Project {
+        + str id
+        + str name
+        + bool is_favorite
+        + bool is_inbox_project
+        + bool is_team_inbox
+        + bool is_shared
+        + str url
+        + str color
+        + Optional[str] parent_id
+        + int order
+        + int comment_count
+        + datetime created_at
     }
 
-    class DueDate {
-        + str date
-        + Optional[datetime] datetime
-        + Optional[str] timezone
-        + bool is_recurring
-        + Optional[str] string
-        + is_overdue(self, reference_time) bool
-        - __str__(self) str
+    class VectorMetadata {
+        + str task_id
+        + List[float] vector
+        + str content
     }
 
-    class TaskDue {
+    class TaskAnalysisResult {
+        + str category
+        + str complexity
+        + List[str] themes
+        + List[str] dependencies
+        + List[str] next_actions
+    }
+
+    class EnrichedTaskData {
+        + Optional[TaskAnalysisResult] analysis
+        + Optional[VectorMetadata] vector_metadata
+    }
+
+    class Due {
         + str date
         + bool is_recurring
         + str string
@@ -127,171 +121,62 @@ classDiagram
 
     class Task {
         + str id
+        + str project_id
         + str content
         + str description
-        + str project_id
-        + str created_at
-        + Optional[TaskDue] due
         + int priority
-        + str url
-        + int comment_count
-        + int order
-        + bool is_completed
-        + List[str] labels
-        + Optional[str] parent_id
-        + Optional[str] assignee_id
-        + Optional[str] assigner_id
-        + Optional[str] section_id
-        + Optional[int] duration
-        + Optional[str] sync_id
-        - __init__(self, **kwargs) None
-        + get_content_hash(self) str
-    }
-
-    class Project {
-        + str id
-        + str name
-        + str color
-        + int comment_count
-        + bool is_favorite
-        + bool is_inbox_project
-        + bool is_shared
-        + bool is_team_inbox
-        + Optional[bool] can_assign_tasks
-        + int order
+        + Optional[Due] due
         + Optional[str] parent_id
         + str url
-        + str view_style
-        + List[Task] tasks
+        + int order
+        + int comment_count
+        + datetime created_at
     }
 
-    class VectorMetadata {
-        + str doc_id
-        + str embedding_model
-        + datetime last_updated
-        + str content_hash
+    class TodoistDataMapper {
+        + map_project(self, project_data) Project
+        + map_task(self, task_data) Task
+        - _map_due(self, due_data) Optional[Due]
     }
 
-    class EnrichedTask {
-        + Task task
-        + Project project
-        + Dict[str, Any] metadata
-        + Optional[List[float]] embeddings
-        + Optional[VectorMetadata] vector_metadata
-        + datetime processed_at
-    }
-
-    class ProjectSorter {
-        + sort(self, projects) List[Project]
-    }
-
-    class ProjectFormatter {
-        + format(self, project) str
-    }
-
-    class ProjectRepository {
-        + save(self, projects) None
-    }
-
-    class TaskEnrichmentService {
-        - __init__(self, openai_api_key) None
-        + get_embeddings(self, text) List[float]
-        + analyze_task(self, task) Dict[str, Any]
-    }
-
-    class VectorStoreConfig {
-        + str collection_name
-        + str embedding_model
-        + int batch_size
-        + int similarity_top_k
-        + Optional[str] persist_directory
-        + Optional[Dict[str, Any]] chroma_settings
-    }
-
-    class TaskSearchResult {
-        + str task_id
-        + float score
-        + Dict[str, Any] metadata
-    }
-
-    class VectorStoreService {
+    class TodoistApiClient {
         - __init__(self, config) None
-        - _create_document(self, task) Document
-        + upsert_tasks(self, tasks) List[VectorMetadata]
-        + upsert_task(self, enriched_task) VectorMetadata
-        + delete_tasks(self, task_ids) None
-        + delete_task(self, task_id) None
-        + search_tasks(self, query, filters, top_k) List[TaskSearchResult]
-        + find_similar_tasks(self, task, project_id, top_k) List[TaskSearchResult]
+        + get_all_data(self) Dict[str, Any]
+        + get_projects(self) List[Dict[str, Any]]
+        + get_tasks(self) List[Dict[str, Any]]
     }
 
-    class TaskProcessor {
-        - __init__(self) None
-        + process_task(self, task, project, previous_task) Optional[EnrichedTask]
-        - _extract_metadata(self, task, project) Dict[str, Any]
-        - _determine_project_type(self, project) str
-        - _determine_task_type(self, task) str
-        - _get_priority_level(self, priority) str
-        - _extract_temporal_metadata(self, task) Dict[str, Any]
+    class LLMTaskAnalyzer {
+        - __init__(self, config) None
+        + analyze_task(self, task) TaskAnalysis
+        - _call_llm(self, prompt) Dict[str, Any]
     }
 
-    class TodoistService {
-        - __init__(self) None
-        + sync_projects_and_tasks(self) None
-        + sync_tasks_for_project(self, project_id) None
-        + get_task(self, task_id) None
+    class TaskEnrichmentWorkflow {
+        - __init__(self, task_analyzer, vector_store) None
+        + enrich_task(self, task) EnrichedTaskData
+        + enrich_all(self, tasks) List[EnrichedTaskData]
+        - _generate_vector_metadata(self, task, analysis) Optional[VectorMetadata]
     }
 
-    class ProjectOperations {
-        + format(self, project) str
-        + sort(self, projects) List[Project]
+    class VectorStore {
+        - __init__(self, openai_client, index_path) None
+        + generate_embedding(self, text) List[float]
+        + add_vector(self, metadata) None
+        + search_similar(self, query_text, k) List[VectorMetadata]
+        - _load_or_create_index(self) faiss.Index
+        + save(self) None
     }
 
-    LogConfig --|> `abc.ABC`
+    class VectorSearchService {
+        - __init__(self, embedding_generator, index_storage) None
+        + search_similar(self, query, k) List[Dict[str, Any]]
+    }
 
-    APIConfig --|> `abc.ABC`
+    class TodoistSyncWorkflow {
+        - __init__(self, api_client, data_sync, task_repository, project_repository) None
+        + sync_all(self) Tuple[List[Project], List[Task]]
+    }
 
-    VectorStoreSettings --|> `pydantic_settings.BaseSettings`
-
-    Settings --|> `pydantic_settings.BaseSettings`
-
-    Settings --|> LogConfig
-
-    Settings --|> APIConfig
-
-    StorageType --|> `enum.Enum`
-
-    TodoistServiceFactory --|> `aerith_ingestion.core.base.TracedClass`
-
-    BaseService --|> `Generic[P, R]`
-
-    JSONProjectRepository --|> `aerith_ingestion.core.base.TracedClass`
-
-    JSONProjectRepository --|> `aerith_ingestion.domain.models.ProjectRepository`
-
-    ViewStyle --|> str
-
-    ViewStyle --|> `enum.Enum`
-
-    TaskPriority --|> int
-
-    TaskPriority --|> `enum.Enum`
-
-    TaskStats --|> `typing.NamedTuple`
-
-    ProjectSorter --|> `typing.Protocol`
-
-    ProjectFormatter --|> `typing.Protocol`
-
-    ProjectRepository --|> `abc.ABC`
-
-    TaskSearchResult --|> `typing.NamedTuple`
-
-    TodoistService --|> `aerith_ingestion.core.base.BaseService`
-
-    ProjectOperations --|> `aerith_ingestion.core.base.TracedClass`
-
-    ProjectOperations --|> `aerith_ingestion.domain.models.ProjectFormatter`
-
-    ProjectOperations --|> `aerith_ingestion.domain.models.ProjectSorter`
+    EnrichedTaskData --|> `aerith_ingestion.domain.task.task.Task`
 ```

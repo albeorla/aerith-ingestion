@@ -1,4 +1,8 @@
-.PHONY: install install-hooks format lint check clean tree-src tree-docs help start diagrams
+.PHONY: install install-hooks format lint check clean tree-src tree-docs help serve sync viz diagrams crawl precrawl
+
+#######################
+# Core Setup
+#######################
 
 # Poetry installation and environment setup
 install:
@@ -24,12 +28,38 @@ install-hooks:
 	@ls -l .git/hooks/prepare-commit-msg .git/hooks/pre-commit
 	@echo "✓ Git hooks installed successfully"
 
+#######################
+# Main Application
+#######################
+
+# Run the API server
+serve:
+	@echo "Starting the API server..."
+	poetry run aerith serve
+
+# Sync Todoist tasks
+sync:
+	@echo "Syncing Todoist tasks..."
+	poetry run aerith sync
+
+# Crawl a website (with optional precrawl) and save results
+crawl: URL := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+crawl:
+	@echo "Crawling a website and saving results..."
+	poetry run aerith crawl $(URL)
+%:
+	@:
+
+#######################
+# Development Tools
+#######################
+
 # Format the code
 format:
 	@echo "Formatting code..."
-	poetry run pycln src docs infra hooks
-	poetry run isort src docs infra hooks
-	poetry run black src docs infra hooks
+	poetry run pycln src docs infra hooks 
+	poetry run isort src docs infra hooks 
+	poetry run black src docs infra hooks 
 
 # Lint the code
 lint:
@@ -43,6 +73,25 @@ check:
 	poetry run isort --check-only src docs infra hooks
 	poetry run black --check src docs infra hooks
 	poetry run flake8 src infra hooks
+
+#######################
+# Visualization & Documentation
+#######################
+
+# Generate vector visualization
+viz:
+	@echo "Generating vector visualization..."
+	poetry run aerith viz
+
+# Generate code structure diagrams
+diagrams:
+	@echo "Generating code structure diagrams..."
+	@mkdir -p docs/diagrams
+	poetry run pymermaider src/aerith_ingestion -o docs/diagrams --exclude "**/tests/**"
+
+#######################
+# Utility & Maintenance
+#######################
 
 # Clean up generated files and directories
 clean:
@@ -64,22 +113,14 @@ help:
 	@echo "Available commands:"
 	@echo "  make install      - Install dependencies using Poetry"
 	@echo "  make install-hooks- Install git hooks"
+	@echo "  make serve        - Run the API server"
+	@echo "  make sync         - Sync Todoist tasks"
+	@echo "  make crawl        - Crawl a website and save results (--url URL --output FILE)"
 	@echo "  make format       - Format code with pycln, isort, and black"
 	@echo "  make lint         - Lint code with flake8"
 	@echo "  make check        - Check code quality without modifying files"
+	@echo "  make viz          - Generate vector visualization"
+	@echo "  make diagrams     - Generate code structure diagrams using pymermaider"
 	@echo "  make clean        - Clean up generated files and directories"
 	@echo "  make tree-src     - Display source directory structure"
 	@echo "  make tree-docs    - Display docs directory structure"
-	@echo "  make diagrams     - Generate code structure diagrams using pymermaider"
-	@echo "  make start        - Run the application"
-
-# Generate code structure diagrams
-diagrams:
-	@echo "Generating code structure diagrams..."
-	@mkdir -p docs/diagrams
-	poetry run pymermaider src/aerith_ingestion -o docs/diagrams --exclude "**/tests/**"
-
-# Run the application
-start:
-	@echo "Starting the application..."
-	poetry run start
