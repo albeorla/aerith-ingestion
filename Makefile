@@ -1,50 +1,78 @@
-.PHONY: install lint format clean tree help start check
+.PHONY: install install-hooks format lint check clean tree-src tree-docs help start
 
 # Poetry installation and environment setup
 install:
+	@echo "Installing dependencies..."
 	poetry install || (poetry lock && poetry install)
+	@if [ ! -x .git/hooks/pre-commit ] || [ ! -x .git/hooks/prepare-commit-msg ] || \
+		! cmp -s hooks/pre-commit .git/hooks/pre-commit || \
+		! cmp -s hooks/prepare-commit-msg .git/hooks/prepare-commit-msg; then \
+		echo "Git hooks need to be installed or updated..."; \
+		$(MAKE) install-hooks; \
+	else \
+		echo "Git hooks are up to date"; \
+	fi
+
+# Install git hooks
+install-hooks:
+	@echo "Setting up git hooks..."
+	@mkdir -p .git/hooks
+	@cp hooks/prepare-commit-msg .git/hooks/
+	@chmod +x .git/hooks/prepare-commit-msg
+	@cp hooks/pre-commit .git/hooks/
+	@chmod +x .git/hooks/pre-commit
+	@ls -l .git/hooks/prepare-commit-msg .git/hooks/pre-commit
+	@echo "✓ Git hooks installed successfully"
 
 # Format the code
 format:
-	poetry run pycln src docs infra
-	poetry run isort src docs infra
-	poetry run black src docs infra
+	@echo "Formatting code..."
+	poetry run pycln src docs infra hooks
+	poetry run isort src docs infra hooks
+	poetry run black src docs infra hooks
 
 # Lint the code
 lint:
-	poetry run flake8 src infra
+	@echo "Linting code..."
+	poetry run flake8 src infra hooks
 
 # Check code quality without modifying files
 check:
-	poetry run pycln --check src docs infra
-	poetry run isort --check-only src docs infra
-	poetry run black --check src docs infra
-	poetry run flake8 src infra
+	@echo "Checking code quality..."
+	poetry run pycln --check src docs infra hooks
+	poetry run isort --check-only src docs infra hooks
+	poetry run black --check src docs infra hooks
+	poetry run flake8 src infra hooks
 
 # Clean up generated files and directories
 clean:
+	@echo "Cleaning up..."
 	rm -rf .pytest_cache .coverage htmlcov dist *.egg-info logs/
 	find . -type d -name __pycache__ -exec rm -rf {} +
 
 # Display directory structure considering .gitignore
 tree-src:
+	@echo "Displaying source directory structure..."
 	git ls-files --others --exclude-standard --cached --directory | grep -E '^src/' | tree --fromfile
 
 tree-docs:
+	@echo "Displaying docs directory structure..."
 	git ls-files --others --exclude-standard --cached --directory | grep -E '^docs/' | tree --fromfile
 
 # Display available commands
 help:
 	@echo "Available commands:"
-	@echo "  make install  - Install dependencies using Poetry"
-	@echo "  make format   - Format code with pycln, isort, and black"
-	@echo "  make lint     - Lint code with flake8"
-	@echo "  make check    - Check code quality without modifying files"
-	@echo "  make clean    - Clean up generated files and directories"
-	@echo "  make tree-src - Display source directory structure"
-	@echo "  make tree-docs- Display docs directory structure"
-	@echo "  make start    - Run the application"
+	@echo "  make install      - Install dependencies using Poetry"
+	@echo "  make install-hooks- Install git hooks"
+	@echo "  make format       - Format code with pycln, isort, and black"
+	@echo "  make lint         - Lint code with flake8"
+	@echo "  make check        - Check code quality without modifying files"
+	@echo "  make clean        - Clean up generated files and directories"
+	@echo "  make tree-src     - Display source directory structure"
+	@echo "  make tree-docs    - Display docs directory structure"
+	@echo "  make start        - Run the application"
 
 # Run the application
 start:
+	@echo "Starting the application..."
 	poetry run start

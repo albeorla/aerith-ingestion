@@ -1,0 +1,59 @@
+#!/usr/bin/env poetry run python
+
+import logging
+import subprocess
+import sys
+from pathlib import Path
+
+# Setup logging
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('.git/hooks/pre-commit.log'),
+        logging.StreamHandler()
+    ]
+)
+
+def run_command(cmd: str) -> bool:
+    """Run a command and return True if successful."""
+    try:
+        subprocess.run(cmd.split(), check=True)
+        return True
+    except subprocess.CalledProcessError as e:
+        logging.error(f"Command failed: {cmd}")
+        logging.error(f"Error: {e}")
+        return False
+
+def main():
+    try:
+        print("Running pre-commit hooks...")
+        
+        # Format code
+        print("\nRunning formatters...")
+        if not run_command("poetry run pycln src docs infra hooks"):
+            return 1
+        if not run_command("poetry run isort src docs infra hooks"):
+            return 1
+        if not run_command("poetry run black src docs infra hooks"):
+            return 1
+            
+        # Stage formatted files
+        print("\nStaging formatted files...")
+        if not run_command("git add src docs infra hooks"):
+            return 1
+            
+        # Lint code
+        print("\nRunning linters...")
+        if not run_command("poetry run flake8 src infra hooks"):
+            return 1
+            
+        print("\n✓ All checks passed!")
+        return 0
+            
+    except Exception as e:
+        logging.error(f"Hook failed: {e}", exc_info=True)
+        return 1
+
+if __name__ == "__main__":
+    sys.exit(main()) 
