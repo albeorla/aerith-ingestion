@@ -21,7 +21,7 @@
     "@chakra-ui/table": "^2.1.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
-    "ai": "^2.2.31",
+    "ai": "^4.0.38",
     "framer-motion": "^10.17.9",
     "next": "14.0.4",
     "react": "^18",
