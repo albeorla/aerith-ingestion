@@ -8,14 +8,9 @@ from enum import Enum, auto
 from loguru import logger
 
 from aerith_ingestion.core.base import TracedClass
-from aerith_ingestion.domain.models import (
-    ProjectFormatter,
-    ProjectRepository,
-    ProjectSorter,
-)
+from aerith_ingestion.domain.models import ProjectRepository
 from aerith_ingestion.infrastructure.repositories import JSONProjectRepository
-from aerith_ingestion.services.formatters import DefaultProjectFormatter
-from aerith_ingestion.services.sorters import DefaultProjectSorter
+from aerith_ingestion.services.project_operations import ProjectOperations
 from aerith_ingestion.services.todoist import TodoistService
 from src.aerith_ingestion.core.config import Settings
 
@@ -35,8 +30,7 @@ class ServiceConfig:
 
     storage_type: StorageType = StorageType.JSON
     storage_path: str = "tmp/projects.json"
-    sorter: ProjectSorter = DefaultProjectSorter()
-    formatter: ProjectFormatter = DefaultProjectFormatter()
+    project_operations: ProjectOperations = ProjectOperations()
 
 
 class TodoistServiceFactory(TracedClass):
@@ -63,8 +57,8 @@ class TodoistServiceFactory(TracedClass):
             return TodoistService(
                 config=settings,
                 repository=repository,
-                sorter=service_config.sorter,
-                formatter=service_config.formatter,
+                sorter=service_config.project_operations,
+                formatter=service_config.project_operations,
             )
         except Exception as e:
             logger.error(f"Failed to create TodoistService: {e}")

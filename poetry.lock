@@ -3755,6 +3755,18 @@ avro = ["fastavro (>=1.9.2)"]
 functions = ["apache-bookkeeper-client (>=4.16.1)", "grpcio (>=1.60.0)", "prometheus-client", "protobuf (>=3.6.1,<=3.20.3)", "ratelimit"]
 
 [[package]]
+name = "py2puml"
+version = "0.9.1"
+description = "Generate PlantUML class diagrams to document your Python application."
+optional = false
+python-versions = ">=3.8,<4.0"
+groups = ["main"]
+files = [
+    {file = "py2puml-0.9.1-py3-none-any.whl", hash = "sha256:2ddc41319374c81f78cfbf9cfdbadf3e87e9db9bc3c031974c8c9dd15b809208"},
+    {file = "py2puml-0.9.1.tar.gz", hash = "sha256:3aca8f696c017905053421463fde0e62fef6c3a9388a735d53575939b0ca30be"},
+]
+
+[[package]]
 name = "pyasn1"
 version = "0.6.1"
 description = "Pure-Python implementation of ASN.1 types and DER/BER/CER codecs (X.208)"
@@ -5872,4 +5884,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11.5,<3.12"
-content-hash = "6d0da69f944a5346f0f70f345833324b9032f9c482299e27006d5704277f1090"
+content-hash = "a49bd3e9dfee73b5a492e261db34bfaee7e8aa7907dae4aba6ef76baddbe972c"
