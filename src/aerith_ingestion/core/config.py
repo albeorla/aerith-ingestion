@@ -5,11 +5,42 @@ Configuration settings for the application following SOLID principles.
 import os
 import sys
 from abc import ABC, abstractmethod
+from functools import lru_cache
 from typing import Any, Dict, Optional
 
 from loguru import logger
 from pydantic import Field, validator
 from pydantic_settings import BaseSettings
+
+
+def log_section(title: str) -> None:
+    """Log a section header with consistent formatting."""
+    logger.info("\n\n========== {} ==========", title)
+
+
+# Log format strings
+DEFAULT_LOG_FORMAT = (
+    "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | "
+    "<level>{level: <8}</level> | "
+    "<cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> | "
+    "<level>{message}</level>"
+)
+
+DEFAULT_TRACE_FORMAT = DEFAULT_LOG_FORMAT
+
+DEFAULT_ERROR_FORMAT = (
+    "<red>{time:YYYY-MM-DD HH:mm:ss.SSS}</red> | "
+    "<level>{level: <8}</level> | "
+    "<cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> | "
+    "<red>Error:</red> {message}\n"
+    "<red>Exception:</red> {exception}\n"
+    "<red>Context:</red>\n{extra}"
+)
+
+SIMPLE_CONSOLE_FORMAT = "<level>{message}</level>"
+
+SIMPLE_ERROR_FORMAT = DEFAULT_ERROR_FORMAT
+SIMPLE_TRACE_FORMAT = DEFAULT_LOG_FORMAT
 
 
 class LogConfig(ABC):
@@ -98,28 +129,17 @@ class Settings(BaseSettings, LogConfig, APIConfig):
     )
     log_level: str = Field(default="INFO", env="LOG_LEVEL", description="Logging level")
     log_format: str = Field(
-        default="<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | "
-        "<level>{level: <8}</level> | "
-        "<cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> | "
-        "<level>{message}</level>",
+        default=DEFAULT_LOG_FORMAT,
         env="LOG_FORMAT",
         description="Log format string",
     )
     trace_log_format: str = Field(
-        default="<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | "
-        "<level>{level: <8}</level> | "
-        "<cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> | "
-        "<level>{message}</level>",
+        default=DEFAULT_TRACE_FORMAT,
         env="TRACE_LOG_FORMAT",
         description="Trace log format string",
     )
     error_log_format: str = Field(
-        default="<red>{time:YYYY-MM-DD HH:mm:ss.SSS}</red> | "
-        "<level>{level: <8}</level> | "
-        "<cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> | "
-        "<red>Error:</red> {message}\n"
-        "<red>Exception:</red> {exception}\n"
-        "<red>Context:</red>\n{extra}\n",
+        default=DEFAULT_ERROR_FORMAT,
         env="ERROR_LOG_FORMAT",
         description="Error log format string",
     )
@@ -145,25 +165,19 @@ class Settings(BaseSettings, LogConfig, APIConfig):
         if self.environment == "dev" or self.debug:
             logger.add(
                 sys.stderr,
-                format=self.log_format,
+                format=SIMPLE_CONSOLE_FORMAT,  # Simplified format for console
                 level=self.log_level,
-                backtrace=True,
-                diagnose=True,
                 colorize=True,
                 enqueue=True,
-                catch=True,
             )
 
-        # Add main application log file handler
+        # Add main application log file handler with full details
         log_file = os.path.join(self.log_path, "app.log")
         logger.add(
             log_file,
-            format=self.log_format,
+            format=self.trace_log_format,
             level=self.log_level,
-            backtrace=True,
-            diagnose=True,
             enqueue=True,
-            catch=True,
             mode="w",
         )
 
@@ -171,30 +185,24 @@ class Settings(BaseSettings, LogConfig, APIConfig):
         error_log_file = os.path.join(self.log_path, "error.log")
         logger.add(
             error_log_file,
-            format=self.error_log_format,
+            format=SIMPLE_ERROR_FORMAT,
             level="ERROR",
-            backtrace=True,
-            diagnose=True,
             enqueue=True,
-            catch=True,
             filter=lambda record: record["level"].name == "ERROR",
             mode="w",
         )
 
-        # Add main application log file handler
+        # Add trace log file with full details
         trace_log_file = os.path.join(self.log_path, "trace.log")
         logger.add(
             trace_log_file,
-            format=self.trace_log_format,
+            format=SIMPLE_TRACE_FORMAT,
             level="TRACE",
-            backtrace=True,
-            diagnose=True,
             enqueue=True,
-            catch=True,
             mode="w",
         )
 
-        logger.debug(f"Logging initialized with level {self.log_level}")
+        logger.trace("Logging initialized with level {}", self.log_level)
 
     def ensure_log_path(self) -> None:
         """Ensure log directory exists."""
@@ -226,3 +234,12 @@ class Settings(BaseSettings, LogConfig, APIConfig):
         """Initialize settings and set up logging."""
         super().__init__(**kwargs)
         self.setup_logging()
+
+
+@lru_cache()
+def get_settings() -> Settings:
+    """
+    Get application settings using singleton pattern.
+    Uses lru_cache to ensure only one instance is created.
+    """
+    return Settings()
