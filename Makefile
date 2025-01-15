@@ -1,4 +1,4 @@
-.PHONY: install install-hooks format lint check clean tree-src tree-docs help start
+.PHONY: install install-hooks format lint check clean tree-src tree-docs help start diagrams
 
 # Poetry installation and environment setup
 install:
@@ -70,7 +70,14 @@ help:
 	@echo "  make clean        - Clean up generated files and directories"
 	@echo "  make tree-src     - Display source directory structure"
 	@echo "  make tree-docs    - Display docs directory structure"
+	@echo "  make diagrams     - Generate code structure diagrams using pymermaider"
 	@echo "  make start        - Run the application"
+
+# Generate code structure diagrams
+diagrams:
+	@echo "Generating code structure diagrams..."
+	@mkdir -p docs/diagrams
+	poetry run pymermaider src/aerith_ingestion -o docs/diagrams --exclude "**/tests/**"
 
 # Run the application
 start:

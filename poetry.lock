@@ -4060,6 +4060,32 @@ files = [
 windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
+name = "pymermaider"
+version = "0.1.4"
+description = "Mermaid diagram generator for Python code."
+optional = false
+python-versions = ">=3.7"
+groups = ["main"]
+files = [
+    {file = "pymermaider-0.1.4-py3-none-macosx_10_12_x86_64.macosx_11_0_arm64.macosx_10_12_universal2.whl", hash = "sha256:4d43e690bc51d588796b65a128fedcb50baf97115abda7470d09b7cec7428077"},
+    {file = "pymermaider-0.1.4-py3-none-macosx_10_12_x86_64.whl", hash = "sha256:16adb6e941198a81d00f21078265fde6854b87c09ebcc476ff282b50a01817e1"},
+    {file = "pymermaider-0.1.4-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:d7411cdbe99a940e4f6e19db3fa282974b230541b458a4f0395ebd5a256d7e50"},
+    {file = "pymermaider-0.1.4-py3-none-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:18d962fae6159d0a49a47aea255ffbd041fb5f93585dacb681118c0f3514ee48"},
+    {file = "pymermaider-0.1.4-py3-none-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:6e44dcc4a6bb6fe36d808326c44152cb50c3a75fc2fc0842d3e650c940deb0c1"},
+    {file = "pymermaider-0.1.4-py3-none-manylinux_2_17_ppc64.manylinux2014_ppc64.whl", hash = "sha256:60709e39394ee74666168f2719c567b74b31d6288187214760b3259723e8f5e4"},
+    {file = "pymermaider-0.1.4-py3-none-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:f5430dabd04da308ce74202a6b8c91ffc5e83f03e04de65b297fda33230e9c9c"},
+    {file = "pymermaider-0.1.4-py3-none-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:bc747da154ffd6401b3ff9c3eb977bf7f592d8a5854ed4ae31329db538ee7f45"},
+    {file = "pymermaider-0.1.4-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:915373cd52f179d712c2083a89be591feafbf85818108760a87a2f49ffd6d3d5"},
+    {file = "pymermaider-0.1.4-py3-none-musllinux_1_2_aarch64.whl", hash = "sha256:db97bf5440bce1eefc8acf9df83f19a9f1432973d45ded638541fa0c95f17a24"},
+    {file = "pymermaider-0.1.4-py3-none-musllinux_1_2_armv7l.whl", hash = "sha256:88b110e85bfd8f0126c86a9d1c89fb699264708ee587aa72dc7bc330691bec42"},
+    {file = "pymermaider-0.1.4-py3-none-musllinux_1_2_i686.whl", hash = "sha256:1cd323ede5472c400e6120c84d268e75d16ae87dce96fc6b7d51f7df1e9def4d"},
+    {file = "pymermaider-0.1.4-py3-none-musllinux_1_2_x86_64.whl", hash = "sha256:d89ff2e89a8766bcfc99b490ec90d2604e06f1e202df61842204a1d43361e6fd"},
+    {file = "pymermaider-0.1.4-py3-none-win32.whl", hash = "sha256:437e2d09dc0420d56cf51cd6ee3c2a2e9553b3bfab69910188d429f909bd7549"},
+    {file = "pymermaider-0.1.4-py3-none-win_amd64.whl", hash = "sha256:c4e188545d9f0e81ce8acc41820186f148ee673b8e8dd8fea6ebd42eff46b2ca"},
+    {file = "pymermaider-0.1.4-py3-none-win_arm64.whl", hash = "sha256:07105fc9be39530658bfe5ff388546f30b8871195b77099abceaa6ed332b3609"},
+]
+
+[[package]]
 name = "pynndescent"
 version = "0.5.13"
 description = "Nearest Neighbor Descent"
@@ -5884,4 +5910,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11.5,<3.12"
-content-hash = "a49bd3e9dfee73b5a492e261db34bfaee7e8aa7907dae4aba6ef76baddbe972c"
+content-hash = "85f3c80ae3712e7133032fab40b876ed9bddffa93b04ef95bb4d13c9daf4b3b6"
