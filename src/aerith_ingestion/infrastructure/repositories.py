@@ -18,6 +18,7 @@ from aerith_ingestion.domain.models import (
     ProjectRepository,
     Task,
     TaskDue,
+    VectorMetadata,
 )
 
 
@@ -81,6 +82,11 @@ class EnrichedTaskRepository:
             "metadata": enriched_task.metadata,
             "embeddings": enriched_task.embeddings,
             "processed_at": enriched_task.processed_at.isoformat(),
+            "vector_metadata": (
+                self._vector_metadata_to_dict(enriched_task.vector_metadata)
+                if enriched_task.vector_metadata
+                else None
+            ),
         }
 
         # Save to file
@@ -89,26 +95,37 @@ class EnrichedTaskRepository:
 
     def get_by_id(self, task_id: str) -> Optional[EnrichedTask]:
         """Retrieve the most recent enriched task by task ID"""
-        # Find all files for this task ID
-        task_files = list(self.storage_dir.glob(f"{task_id}_*.json"))
+        # Find all files for this task ID (both patterns)
+        task_files = list(self.storage_dir.glob(f"{task_id}*.json"))
 
         if not task_files:
+            logger.warning(f"No files found for task {task_id}")
             return None
 
-        # Get most recent file
-        latest_file = max(task_files, key=lambda p: int(p.stem.split("_")[1]))
+        # Get most recent file based on file modification time
+        latest_file = max(task_files, key=lambda p: p.stat().st_mtime)
+        logger.debug(f"Loading task from {latest_file}")
 
         # Load and convert back to EnrichedTask
-        with open(latest_file) as f:
-            data = json.load(f)
+        try:
+            with open(latest_file) as f:
+                data = json.load(f)
 
-        return EnrichedTask(
-            task=self._dict_to_task(data["task"]),
-            project=self._dict_to_project(data["project"]),
-            metadata=data["metadata"],
-            embeddings=data["embeddings"],
-            processed_at=datetime.fromisoformat(data["processed_at"]),
-        )
+            vector_metadata = None
+            if data.get("vector_metadata"):
+                vector_metadata = self._dict_to_vector_metadata(data["vector_metadata"])
+
+            return EnrichedTask(
+                task=self._dict_to_task(data["task"]),
+                project=self._dict_to_project(data["project"]),
+                metadata=data["metadata"],
+                embeddings=data["embeddings"],
+                vector_metadata=vector_metadata,
+                processed_at=datetime.fromisoformat(data["processed_at"]),
+            )
+        except Exception as e:
+            logger.error(f"Error loading task {task_id} from {latest_file}: {e}")
+            return None
 
     def get_all_processed_tasks(self) -> Dict[str, datetime]:
         """Get a dictionary of all processed task IDs and their last
@@ -202,3 +219,21 @@ class EnrichedTaskRepository:
         tasks_data = data.pop("tasks")
         tasks = [self._dict_to_task(task_data) for task_data in tasks_data]
         return Project(tasks=tasks, **data)
+
+    def _vector_metadata_to_dict(self, metadata: VectorMetadata) -> dict:
+        """Convert VectorMetadata to dictionary"""
+        return {
+            "doc_id": metadata.doc_id,
+            "embedding_model": metadata.embedding_model,
+            "last_updated": metadata.last_updated.isoformat(),
+            "content_hash": metadata.content_hash,
+        }
+
+    def _dict_to_vector_metadata(self, data: dict) -> VectorMetadata:
+        """Convert dictionary to VectorMetadata"""
+        return VectorMetadata(
+            doc_id=data["doc_id"],
+            embedding_model=data["embedding_model"],
+            last_updated=datetime.fromisoformat(data["last_updated"]),
+            content_hash=data["content_hash"],
+        )

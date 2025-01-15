@@ -1,4 +1,8 @@
-.PHONY: install install-hooks format lint check clean tree-src tree-docs help start diagrams
+.PHONY: install install-hooks format lint check clean tree-src tree-docs help serve sync viz diagrams
+
+#######################
+# Environment Setup
+#######################
 
 # Poetry installation and environment setup
 install:
@@ -24,6 +28,10 @@ install-hooks:
 	@ls -l .git/hooks/prepare-commit-msg .git/hooks/pre-commit
 	@echo "✓ Git hooks installed successfully"
 
+#######################
+# Code Quality
+#######################
+
 # Format the code
 format:
 	@echo "Formatting code..."
@@ -44,6 +52,10 @@ check:
 	poetry run black --check src docs infra hooks
 	poetry run flake8 src infra hooks
 
+#######################
+# Maintenance
+#######################
+
 # Clean up generated files and directories
 clean:
 	@echo "Cleaning up..."
@@ -59,6 +71,10 @@ tree-docs:
 	@echo "Displaying docs directory structure..."
 	git ls-files --others --exclude-standard --cached --directory | grep -E '^docs/' | tree --fromfile
 
+#######################
+# Documentation
+#######################
+
 # Display available commands
 help:
 	@echo "Available commands:"
@@ -71,7 +87,9 @@ help:
 	@echo "  make tree-src     - Display source directory structure"
 	@echo "  make tree-docs    - Display docs directory structure"
 	@echo "  make diagrams     - Generate code structure diagrams using pymermaider"
-	@echo "  make start        - Run the application"
+	@echo "  make serve        - Run the API server"
+	@echo "  make sync         - Sync Todoist tasks"
+	@echo "  make viz         - Generate vector visualization"
 
 # Generate code structure diagrams
 diagrams:
@@ -79,7 +97,21 @@ diagrams:
 	@mkdir -p docs/diagrams
 	poetry run pymermaider src/aerith_ingestion -o docs/diagrams --exclude "**/tests/**"
 
-# Run the application
-start:
-	@echo "Starting the application..."
-	poetry run start
+#######################
+# Application Commands
+#######################
+
+# Run the API server
+serve:
+	@echo "Starting the API server..."
+	poetry run aerith serve
+
+# Sync Todoist tasks
+sync:
+	@echo "Syncing Todoist tasks..."
+	poetry run aerith sync
+
+# Generate vector visualization
+viz:
+	@echo "Generating vector visualization..."
+	poetry run aerith viz
