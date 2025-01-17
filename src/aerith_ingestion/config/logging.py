@@ -1,6 +1,4 @@
-"""
-Logging configuration settings.
-"""
+"""Logging configuration settings."""
 
 import os
 import sys
@@ -41,7 +39,7 @@ def setup_logging(config: LoggingConfig) -> None:
     # Remove default handler
     logger.remove()
 
-    # Add console handler
+    # Add console handler with simplified format
     logger.add(
         sys.stderr,
         format=config.console_format,
@@ -60,16 +58,6 @@ def setup_logging(config: LoggingConfig) -> None:
         mode="w",
     )
 
-    # Add trace log file handler
-    trace_log_file = os.path.join(config.log_path, "trace.log")
-    logger.add(
-        trace_log_file,
-        format=config.log_format,
-        level="TRACE",
-        enqueue=True,
-        mode="w",
-    )
-
     # Add error log file handler
     error_log_file = os.path.join(config.log_path, "error.log")
     logger.add(
@@ -77,6 +65,6 @@ def setup_logging(config: LoggingConfig) -> None:
         format=config.error_format,
         level="ERROR",
         enqueue=True,
-        filter=lambda record: record["level"].name == "ERROR",
         mode="w",
+        filter=lambda record: record["level"].name == "ERROR",
     )

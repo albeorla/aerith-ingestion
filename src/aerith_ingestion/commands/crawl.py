@@ -8,7 +8,30 @@ from typing import List, Optional
 import click
 from loguru import logger
 
+from aerith_ingestion.config.logging import LoggingConfig, setup_logging
 from aerith_ingestion.services.crawler.workflow import create_crawler_workflow
+
+
+def setup_crawler_logging(log_path: str) -> None:
+    """Set up crawler-specific logging."""
+    # Format for crawler logs
+    crawler_format = (
+        "<green>{time:HH:mm:ss}</green> | "
+        "<level>{level: <8}</level> | "
+        "<cyan>{name}:{function}</cyan> | "
+        "{message}"
+    )
+
+    # Add crawler log handler
+    crawler_log_file = os.path.join(log_path, "crawler.log")
+    logger.add(
+        crawler_log_file,
+        format=crawler_format,
+        level="TRACE",  # Capture all crawler logs
+        enqueue=True,
+        mode="w",
+        filter=lambda record: record["name"].startswith("aerith_ingestion.services.crawler")
+    )
 
 
 async def crawl_site(url: str, output: str, exclude_patterns: Optional[List[str]] = None) -> None:
@@ -60,6 +83,13 @@ async def crawl_all_sites() -> None:
 @click.option("--exclude", multiple=True, help="Patterns to exclude from crawling")
 def crawl(url: Optional[str], output: Optional[str], exclude: Optional[tuple]) -> None:
     """Crawl documentation sites."""
+    # Set up base logging
+    config = LoggingConfig(log_path="logs", log_level="INFO")
+    setup_logging(config)
+    
+    # Set up crawler-specific logging
+    setup_crawler_logging(config.log_path)
+
     if url and output:
         # Single site crawl
         asyncio.run(crawl_site(url, output, list(exclude) if exclude else None))

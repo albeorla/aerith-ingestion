@@ -130,7 +130,12 @@ class MarkdownResultSaver(ResultSaver):
         logger.info(f"Files without headings: {total_files - files_with_headings}")
         logger.info(f"Total lines removed: {total_lines_removed}")
         logger.info("Files processed:")
-        for file_info in sorted(self.processed_files, key=lambda x: x['filename']):
+        
+        # Sort by filename for consistent output
+        sorted_files = sorted(self.processed_files, key=lambda x: x['filename'])
+        for file_info in sorted_files:
             status = "✓" if file_info['heading'] else "✗"
-            logger.info(f"{status} {file_info['filename']}: {file_info['heading'] or 'No heading'}")
+            heading = file_info['heading'] or 'No heading'
+            logger.info(f"{status} {file_info['filename']}: {heading}")
+        
         logger.info("===============================\n")
