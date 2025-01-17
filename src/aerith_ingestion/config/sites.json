@@ -1,0 +1,28 @@
+{
+    "sites": [
+        {
+            "url": "https://mermaid.js.org/intro",
+            "output_dir": "data/mermaid",
+            "exclude_patterns": [
+                "community",
+                "news",
+                "blog",
+                "releases",
+                "ecosystem/tutorials"
+            ]
+        },
+        {
+            "url": "https://docs.crawl4ai.com",
+            "output_dir": "data/crawl4ai",
+            "exclude_patterns": [
+                "contributing",
+                "roadmap",
+                "mission",
+                "changelog",
+                "code-of-conduct",
+                "license",
+                "about"
+            ]
+        }
+    ]
+} 

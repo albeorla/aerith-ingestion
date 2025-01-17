@@ -1,44 +1,68 @@
-"""Crawl command for downloading and processing documentation sites."""
+"""Command for crawling documentation sites."""
 
 import asyncio
-from urllib.parse import urlparse
+import json
+import os
+from typing import List, Optional
 
 import click
 from loguru import logger
 
-from aerith_ingestion.cli import pass_context
 from aerith_ingestion.services.crawler.workflow import create_crawler_workflow
 
 
-@click.command()
-@click.argument("url")
-@click.option(
-    "--output-dir",
-    default=None,
-    help="Output directory (defaults to data/crawler/<domain>)",
-)
-@pass_context
-def crawl(ctx, url: str, output_dir: str | None) -> None:
-    """Crawl a documentation website and save as markdown.
+async def crawl_site(url: str, output: str, exclude_patterns: Optional[List[str]] = None) -> None:
+    """Crawl a single site."""
+    workflow = create_crawler_workflow()
+    await workflow.crawl_site(url, output, exclude_patterns)
 
-    URL: The website URL to crawl
-    """
+
+async def crawl_all_sites() -> None:
+    """Crawl all sites from configuration."""
+    config_path = os.path.join(os.path.dirname(__file__), "..", "config", "sites.json")
+    
     try:
-        # Use domain name for output directory if not specified
-        if not output_dir:
-            domain = urlparse(url).netloc.replace(":", "_")
-            output_dir = f"data/crawler/{domain}"
+        with open(config_path, "r") as f:
+            config = json.load(f)
+    except FileNotFoundError:
+        logger.error(f"Configuration file not found at {config_path}")
+        return
+    except json.JSONDecodeError:
+        logger.error(f"Invalid JSON in configuration file at {config_path}")
+        return
 
-        # Run the crawler
-        crawler = create_crawler_workflow()
-        logger.info(f"Starting crawl of {url}")
-        logger.info(f"Output directory: {output_dir}")
+    if not config.get("sites"):
+        logger.error("No sites configured in configuration file")
+        return
 
-        asyncio.run(crawler.crawl_site(url=url, output=output_dir))
+    # Create tasks for all sites
+    tasks = []
+    for site in config["sites"]:
+        url = site.get("url")
+        output_dir = site.get("output_dir")
+        exclude_patterns = site.get("exclude_patterns")
 
-    except KeyboardInterrupt:
-        logger.warning("Crawl interrupted by user")
-        raise click.Abort()
-    except Exception as e:
-        logger.error(f"Crawl failed: {str(e)}")
-        raise click.ClickException(str(e))
+        if not url or not output_dir:
+            logger.warning(f"Skipping invalid site configuration: {site}")
+            continue
+
+        tasks.append(crawl_site(url, output_dir, exclude_patterns))
+
+    # Run all crawls concurrently
+    logger.info(f"Starting concurrent crawl of {len(tasks)} sites")
+    await asyncio.gather(*tasks)
+    logger.info("All crawls completed")
+
+
+@click.command()
+@click.argument("url", required=False)
+@click.argument("output", required=False)
+@click.option("--exclude", multiple=True, help="Patterns to exclude from crawling")
+def crawl(url: Optional[str], output: Optional[str], exclude: Optional[tuple]) -> None:
+    """Crawl documentation sites."""
+    if url and output:
+        # Single site crawl
+        asyncio.run(crawl_site(url, output, list(exclude) if exclude else None))
+    else:
+        # Multi-site crawl from configuration
+        asyncio.run(crawl_all_sites())

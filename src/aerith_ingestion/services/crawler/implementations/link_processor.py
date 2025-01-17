@@ -5,15 +5,11 @@ from typing import List, Optional
 from crawl4ai.models import CrawlResult
 from loguru import logger
 
-from aerith_ingestion.services.crawler.interfaces import LinkProcessor, URLNormalizer
+from aerith_ingestion.services.crawler.interfaces import LinkProcessor
 
 
 class DefaultLinkProcessor(LinkProcessor):
     """Default implementation of link processing."""
-
-    def __init__(self, url_normalizer: URLNormalizer):
-        """Initialize with URL normalizer."""
-        self.url_normalizer = url_normalizer
 
     def extract_internal_links(
         self,
@@ -26,15 +22,14 @@ class DefaultLinkProcessor(LinkProcessor):
 
         if result.links and "internal" in result.links:
             for link in result.links["internal"]:
-                url_to_check = link["href"] if isinstance(link, dict) else link
-                normalized_url = self.url_normalizer.normalize(url_to_check, base_url)
+                url = link["href"] if isinstance(link, dict) else link
 
                 if exclude_patterns and any(
-                    pattern in normalized_url for pattern in exclude_patterns
+                    pattern in url for pattern in exclude_patterns
                 ):
-                    logger.debug(f"Skipping excluded URL: {normalized_url}")
+                    logger.debug(f"Skipping excluded URL: {url}")
                     continue
 
-                internal_links.append(normalized_url)
+                internal_links.append(url)
 
         return internal_links
