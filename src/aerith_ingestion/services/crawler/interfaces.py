@@ -20,7 +20,10 @@ class LinkProcessor(ABC):
 
     @abstractmethod
     def extract_internal_links(
-        self, result: CrawlResult, base_url: str, exclude_patterns: Optional[List[str]] = None
+        self,
+        result: CrawlResult,
+        base_url: str,
+        exclude_patterns: Optional[List[str]] = None,
     ) -> List[str]:
         """Extract internal links from crawl result."""
         pass

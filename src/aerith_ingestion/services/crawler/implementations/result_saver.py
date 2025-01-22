@@ -62,7 +62,7 @@ class MarkdownResultSaver(ResultSaver):
             for i, line in enumerate(lines):
                 line = line.strip()
                 # Look for lines that start with exactly one # followed by a space
-                if line and line.startswith('# ') and not line.startswith('## '):
+                if line and line.startswith("# ") and not line.startswith("## "):
                     logger.trace(f"Found main heading at line {i}: {repr(line)}")
                     start_index = i
                     found_heading = line
@@ -72,7 +72,7 @@ class MarkdownResultSaver(ResultSaver):
             if start_index == 0:
                 for i, line in enumerate(lines):
                     line = line.strip()
-                    if line and line.startswith('#'):
+                    if line and line.startswith("#"):
                         logger.trace(f"Found first heading at line {i}: {repr(line)}")
                         start_index = i
                         found_heading = line
@@ -80,7 +80,7 @@ class MarkdownResultSaver(ResultSaver):
 
             # Keep content from the heading onwards
             if start_index > 0:
-                markdown = '\n'.join(lines[start_index:])
+                markdown = "\n".join(lines[start_index:])
                 final_line_count = len(lines) - start_index
                 logger.trace(f"Truncated content to start from line {start_index}")
             else:
@@ -92,12 +92,12 @@ class MarkdownResultSaver(ResultSaver):
 
             # Track file processing details
             file_info = {
-                'filename': filename,
-                'heading': found_heading,
-                'lines_removed': start_index,
-                'original_lines': original_line_count,
-                'final_lines': final_line_count,
-                'url': result.url
+                "filename": filename,
+                "heading": found_heading,
+                "lines_removed": start_index,
+                "original_lines": original_line_count,
+                "final_lines": final_line_count,
+                "url": result.url,
             }
             self.processed_files.append(file_info)
 
@@ -121,21 +121,21 @@ class MarkdownResultSaver(ResultSaver):
     def log_final_summary(self) -> None:
         """Log a summary of all processed files."""
         total_files = len(self.processed_files)
-        files_with_headings = sum(1 for f in self.processed_files if f['heading'])
-        total_lines_removed = sum(f['lines_removed'] for f in self.processed_files)
-        
+        files_with_headings = sum(1 for f in self.processed_files if f["heading"])
+        total_lines_removed = sum(f["lines_removed"] for f in self.processed_files)
+
         logger.info("\n=== Markdown Processing Summary ===")
         logger.info(f"Total files processed: {total_files}")
         logger.info(f"Files with headings: {files_with_headings}")
         logger.info(f"Files without headings: {total_files - files_with_headings}")
         logger.info(f"Total lines removed: {total_lines_removed}")
         logger.info("Files processed:")
-        
+
         # Sort by filename for consistent output
-        sorted_files = sorted(self.processed_files, key=lambda x: x['filename'])
+        sorted_files = sorted(self.processed_files, key=lambda x: x["filename"])
         for file_info in sorted_files:
-            status = "✓" if file_info['heading'] else "✗"
-            heading = file_info['heading'] or 'No heading'
+            status = "✓" if file_info["heading"] else "✗"
+            heading = file_info["heading"] or "No heading"
             logger.info(f"{status} {file_info['filename']}: {heading}")
-        
+
         logger.info("===============================\n")

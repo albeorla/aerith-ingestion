@@ -68,6 +68,10 @@ class TodoistDataMapper:
             timezone=due_data.get("timezone", None),
         )
 
+    def map_projects(self, raw_data: Dict[str, Any]) -> list[Project]:
+        """Map a list of Todoist projects from raw API data."""
+        return [self.map_project(project) for project in raw_data["projects"]]
+
 
 def create_data_mapper() -> TodoistDataMapper:
     """Create a new Todoist data mapper."""

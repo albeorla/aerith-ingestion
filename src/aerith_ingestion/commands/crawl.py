@@ -30,11 +30,15 @@ def setup_crawler_logging(log_path: str) -> None:
         level="TRACE",  # Capture all crawler logs
         enqueue=True,
         mode="w",
-        filter=lambda record: record["name"].startswith("aerith_ingestion.services.crawler")
+        filter=lambda record: record["name"].startswith(
+            "aerith_ingestion.services.crawler"
+        ),
     )
 
 
-async def crawl_site(url: str, output: str, exclude_patterns: Optional[List[str]] = None) -> None:
+async def crawl_site(
+    url: str, output: str, exclude_patterns: Optional[List[str]] = None
+) -> None:
     """Crawl a single site."""
     workflow = create_crawler_workflow()
     await workflow.crawl_site(url, output, exclude_patterns)
@@ -43,7 +47,7 @@ async def crawl_site(url: str, output: str, exclude_patterns: Optional[List[str]
 async def crawl_all_sites() -> None:
     """Crawl all sites from configuration."""
     config_path = os.path.join(os.path.dirname(__file__), "..", "config", "sites.json")
-    
+
     try:
         with open(config_path, "r") as f:
             config = json.load(f)
@@ -83,16 +87,12 @@ async def crawl_all_sites() -> None:
 @click.option("--exclude", multiple=True, help="Patterns to exclude from crawling")
 def crawl(url: Optional[str], output: Optional[str], exclude: Optional[tuple]) -> None:
     """Crawl documentation sites."""
-    # Set up base logging
-    config = LoggingConfig(log_path="logs", log_level="INFO")
+
+    config = LoggingConfig()
     setup_logging(config)
-    
-    # Set up crawler-specific logging
     setup_crawler_logging(config.log_path)
 
     if url and output:
-        # Single site crawl
         asyncio.run(crawl_site(url, output, list(exclude) if exclude else None))
     else:
-        # Multi-site crawl from configuration
         asyncio.run(crawl_all_sites())
