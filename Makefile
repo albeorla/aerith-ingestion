@@ -1,4 +1,4 @@
-.PHONY: install install-hooks format lint check clean tree-src tree-docs help serve sync viz diagrams crawl precrawl
+.PHONY: install install-hooks format lint check clean tree-src tree-docs help serve sync viz diagrams crawl precrawl webhook-serve webhook-gcal-auth webhook-gcal-list db-truncate db-stats
 
 #######################
 # Core Setup
@@ -49,6 +49,25 @@ crawl:
 	poetry run aerith crawl $(URL)
 %:
 	@:
+
+#######################
+# Webhook Server
+#######################
+
+# Start the unified webhook server
+webhook-serve:
+	@echo "Starting unified webhook server..."
+	poetry run aerith webhook serve
+
+# Set up Google Calendar OAuth2 credentials
+webhook-gcal-auth:
+	@echo "Setting up Google Calendar authentication..."
+	poetry run aerith webhook gcal auth setup
+
+# List active Google Calendar webhook channels
+webhook-gcal-list:
+	@echo "Listing active Google Calendar webhook channels..."
+	poetry run aerith webhook gcal list
 
 #######################
 # Development Tools
@@ -108,19 +127,31 @@ tree-docs:
 	@echo "Displaying docs directory structure..."
 	git ls-files --others --exclude-standard --cached --directory | grep -E '^docs/' | tree --fromfile
 
+# Truncate all calendar event tables
+db-truncate:
+	@echo "Truncating all calendar event tables..."
+	poetry run aerith calendar db truncate
+
+# Show calendar database statistics
+db-stats:
+	@echo "Showing calendar database statistics..."
+	poetry run aerith calendar db stats
+
 # Display available commands
 help:
 	@echo "Available commands:"
-	@echo "  make install      - Install dependencies using Poetry"
-	@echo "  make install-hooks- Install git hooks"
-	@echo "  make serve        - Run the API server"
-	@echo "  make sync         - Sync Todoist tasks"
-	@echo "  make crawl        - Crawl a website and save results (--url URL --output FILE)"
-	@echo "  make format       - Format code with pycln, isort, and black"
-	@echo "  make lint         - Lint code with flake8"
-	@echo "  make check        - Check code quality without modifying files"
-	@echo "  make viz          - Generate vector visualization"
-	@echo "  make diagrams     - Generate code structure diagrams using pymermaider"
-	@echo "  make clean        - Clean up generated files and directories"
-	@echo "  make tree-src     - Display source directory structure"
-	@echo "  make tree-docs    - Display docs directory structure"
+	@echo "  make install               - Install dependencies using Poetry"
+	@echo "  make install-hooks         - Install git hooks"
+	@echo "  make crawl                 - Crawl a website and save results"
+	@echo "  make webhook-serve          - Start the unified webhook server"
+	@echo "  make webhook-gcal-auth       - Set up Google Calendar OAuth2 credentials"
+	@echo "  make webhook-gcal-list       - List active Google Calendar webhook channels"
+	@echo "  make format                - Format code with pycln, isort, and black"
+	@echo "  make lint                  - Lint code with flake8"
+	@echo "  make check                 - Check code quality without modifying files"
+	@echo "  make diagrams              - Generate code structure diagrams using pymermaider"
+	@echo "  make clean                 - Clean up generated files and directories"
+	@echo "  make tree-src              - Display source directory structure"
+	@echo "  make tree-docs             - Display docs directory structure"
+	@echo "  make db-truncate           - Truncate all calendar event tables"
+	@echo "  make db-stats              - Show calendar database statistics"

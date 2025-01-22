@@ -29,14 +29,15 @@ def cli(ctx):
     ctx.obj = CommandContext(config)
 
 
+from aerith_ingestion.commands.calendar import calendar  # noqa
 from aerith_ingestion.commands.crawl import crawl  # noqa
-
-# Import commands after context setup to avoid circular imports
-from aerith_ingestion.commands.sync import sync  # noqa
+from aerith_ingestion.commands.webhook import webhook  # noqa
 
 # Register commands
 cli.add_command(sync)
 cli.add_command(crawl)
+cli.add_command(webhook)
+cli.add_command(calendar)
 
 
 if __name__ == "__main__":
