@@ -4,6 +4,7 @@ API configuration settings.
 This module provides configuration for external API services:
 1. Todoist API for task/project data
 2. OpenAI API for task analysis and embeddings
+3. Google Calendar API for calendar integration
 """
 
 from dataclasses import dataclass
@@ -30,8 +31,28 @@ class OpenAIConfig:
 
 
 @dataclass
+class GoogleCalendarApiConfig:
+    """Configuration for Google Calendar API."""
+
+    client_id: str
+    client_secret: str
+    refresh_token: Optional[str] = None
+    token_uri: str = "https://oauth2.googleapis.com/token"
+    scopes: list[str] = None
+
+    def __post_init__(self):
+        """Set default scopes if none provided."""
+        if self.scopes is None:
+            self.scopes = [
+                "https://www.googleapis.com/auth/calendar",
+                "https://www.googleapis.com/auth/calendar.events",
+            ]
+
+
+@dataclass
 class ApiConfig:
     """Combined API configuration settings."""
 
     todoist: TodoistApiConfig
     openai: OpenAIConfig
+    google_calendar: GoogleCalendarApiConfig

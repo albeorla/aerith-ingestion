@@ -37,6 +37,9 @@ faiss-cpu = "^1.9.0.post1"
 crawl4ai = "^0.4.247"
 langchain-community = "^0.3.14"
 mdformat = "^0.7.21"
+google-auth-oauthlib = "^1.2.1"
+google-api-python-client = "^2.159.0"
+pydantic = "^2.10.5"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.2.0"

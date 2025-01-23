@@ -30,13 +30,16 @@ def cli(ctx):
 
 
 from aerith_ingestion.commands.crawl import crawl  # noqa
-
-# Import commands after context setup to avoid circular imports
 from aerith_ingestion.commands.sync import sync  # noqa
-
+from aerith_ingestion.commands.gcal_webhook import gcal_webhook  # noqa
+from aerith_ingestion.commands.todoist_webhook import todoist_webhook  # noqa
+from aerith_ingestion.commands.calendar import calendar  # noqa
 # Register commands
 cli.add_command(sync)
 cli.add_command(crawl)
+cli.add_command(gcal_webhook)
+cli.add_command(todoist_webhook)
+cli.add_command(calendar)
 
 
 if __name__ == "__main__":

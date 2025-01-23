@@ -12,7 +12,7 @@ from aerith_ingestion.config.logging import LoggingConfig, setup_logging
 from aerith_ingestion.services.crawler.workflow import create_crawler_workflow
 
 
-def setup_crawler_logging(log_path: str) -> None:
+def setup_crawler_logging(log_path: str = "logs") -> None:
     """Set up crawler-specific logging."""
     # Format for crawler logs
     crawler_format = (
@@ -90,7 +90,7 @@ def crawl(url: Optional[str], output: Optional[str], exclude: Optional[tuple]) -
 
     config = LoggingConfig()
     setup_logging(config)
-    setup_crawler_logging(config.log_path)
+    setup_crawler_logging()
 
     if url and output:
         asyncio.run(crawl_site(url, output, list(exclude) if exclude else None))

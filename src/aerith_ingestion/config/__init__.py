@@ -10,7 +10,12 @@ from dataclasses import dataclass
 
 from dotenv import load_dotenv
 
-from aerith_ingestion.config.api import ApiConfig, OpenAIConfig, TodoistApiConfig
+from aerith_ingestion.config.api import (
+    ApiConfig,
+    GoogleCalendarApiConfig,
+    OpenAIConfig,
+    TodoistApiConfig,
+)
 from aerith_ingestion.config.db import DatabaseConfig, SQLiteConfig
 from aerith_ingestion.config.enrichment import (
     BatchProcessingConfig,
@@ -46,61 +51,45 @@ def load_config() -> AppConfig:
 
     Optional environment variables:
         TODOIST_API_TOKEN: API key for Todoist (only required for sync command)
+        GOOGLE_CALENDAR_CLIENT_ID: Client ID for Google Calendar API
+        GOOGLE_CALENDAR_CLIENT_SECRET: Client secret for Google Calendar API
+        GOOGLE_CALENDAR_REFRESH_TOKEN: Refresh token for Google Calendar API
 
     Returns:
-        AppConfig: Fully initialized application configuration
-
-    Raises:
-        ValueError: If required environment variables are missing
+        Loaded application configuration
     """
-    # Load environment variables from .env file
     load_dotenv()
 
-    # Load API keys
-    todoist_api_key = os.getenv("TODOIST_API_TOKEN", "")  # Optional
-    openai_api_key = os.getenv("OPENAI_API_KEY")
-    if not openai_api_key:
-        raise ValueError("Missing required OPENAI_API_KEY")
-
-    # Create API config
+    # API configuration
     api_config = ApiConfig(
-        todoist=TodoistApiConfig(api_key=todoist_api_key),
-        openai=OpenAIConfig(
-            api_key=openai_api_key,
-            model="gpt-4o",  # Fixed model name
-            embedding_model="text-embedding-ada-002",
-            vector_index_path="data/vector_store/task_vectors.index",
+        todoist=TodoistApiConfig(api_key=os.getenv("TODOIST_API_TOKEN", "")),
+        openai=OpenAIConfig(api_key=os.getenv("OPENAI_API_KEY", "")),
+        google_calendar=GoogleCalendarApiConfig(
+            client_id=os.getenv("GOOGLE_CALENDAR_CLIENT_ID", ""),
+            client_secret=os.getenv("GOOGLE_CALENDAR_CLIENT_SECRET", ""),
+            refresh_token=os.getenv("GOOGLE_CALENDAR_REFRESH_TOKEN"),
+            token_uri="https://oauth2.googleapis.com/token",
+            scopes=[
+                "https://www.googleapis.com/auth/calendar",
+                "https://www.googleapis.com/auth/calendar.events",
+            ],
         ),
     )
 
-    # Create database config
+    # Database configuration
     db_config = DatabaseConfig(
-        sqlite=SQLiteConfig(
-            database_path="data/todoist.db",
-        ),
+        sqlite=SQLiteConfig(database_path=os.getenv("SQLITE_DB_PATH", "data/aerith.db"))
     )
 
-    # Create enrichment config with customized settings
+    # Enrichment configuration
     enrichment_config = EnrichmentConfig(
-        analysis=TaskAnalysisConfig(
-            min_theme_count=2,
-            max_theme_count=5,
-        ),
-        vector_search=VectorSearchConfig(
-            similarity_threshold=0.7,
-            top_k=5,
-            cache_size=10000,
-        ),
-        batch_processing=BatchProcessingConfig(
-            batch_size=100,
-            max_retries=3,
-            timeout=300,
-        ),
+        analysis=TaskAnalysisConfig(),
+        vector_search=VectorSearchConfig(),
+        batch_processing=BatchProcessingConfig(),
     )
 
-    # Create logging config and set up logging
+    # Logging configuration
     logging_config = LoggingConfig()
-    setup_logging(logging_config)
 
     return AppConfig(
         api=api_config,

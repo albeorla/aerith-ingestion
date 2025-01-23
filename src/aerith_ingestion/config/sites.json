@@ -23,6 +23,13 @@
                 "license",
                 "about"
             ]
+        },
+        {
+            "url": "https://developers.google.com/calendar/api/guides/overview",
+            "output_dir": "data/google_calendar",
+            "exclude_patterns": [
+                "api-client-libraries"
+            ]
         }
     ]
 } 
