@@ -6,7 +6,8 @@ authors = ["Albert J Orlando <albertjorlando@gmail.com>"]
 readme = "README.md"
 
 packages = [
-    { include = "aerith_ingestion", from = "src" }
+    { include = "aerith_ingestion", from = "src" },
+    { include = "mvp", from = "src/mvp" }
 ]
 
 [tool.poetry.dependencies]

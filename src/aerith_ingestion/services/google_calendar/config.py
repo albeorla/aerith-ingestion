@@ -42,6 +42,7 @@ class GoogleCalendarSettings(BaseSettings):
         """
         Pydantic configuration, setting environment variable prefix to 'GOOGLE_CALENDAR_'.
         """
+
         env_prefix = "GOOGLE_CALENDAR_"
 
     def __init__(self, **kwargs):
