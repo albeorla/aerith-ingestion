@@ -1,67 +1,53 @@
 """Unified webhook server for handling notifications from various services."""
 
-from fastapi import Depends, FastAPI, Request, Response
+import uuid
+from datetime import datetime, timedelta
+from distutils.command.build import build
+
+from fastapi import FastAPI
+from googleapiclient.discovery import build as google_client_builder
 from loguru import logger
 
-from aerith_ingestion.services.google_calendar.webhook import WebhookHandler as GCalWebhookHandler
-from aerith_ingestion.services.todoist.webhook import WebhookHandler as TodoistWebhookHandler
-from aerith_ingestion.services.google_calendar.client import GoogleCalendarClient
 from aerith_ingestion.config import load_config
 from aerith_ingestion.services.google_calendar.auth import create_credentials
+from aerith_ingestion.services.google_calendar.webhook_handler import (
+    handle_webhook as handle_gcal_webhook,
+)
+from aerith_ingestion.services.todoist.webhook_handler import (
+    handle_webhook as handle_todoist_webhook,
+)
 
 app = FastAPI()
 
 
-def get_calendar_client() -> GoogleCalendarClient:
-    """Get an authenticated Google Calendar client."""
-    config = load_config()
-    credentials = create_credentials(config.api.google_calendar)
-    return GoogleCalendarClient(credentials)
-
-
-@app.post("/webhook/google-calendar")
-async def gcal_webhook_endpoint(
-    request: Request,
-    response: Response,
-    calendar_client: GoogleCalendarClient = Depends(get_calendar_client),
-):
-    """Handle Google Calendar webhook notifications."""
-    logger.debug("Received Google Calendar webhook request")
-    logger.debug(f"Headers: {dict(request.headers)}")
-
+@app.on_event("startup")
+async def startup_event():
+    """Create webhook channel on startup."""
     try:
-        body = await request.json() if await request.body() else None
-        logger.debug(f"Request body: {body}")
+        config = load_config()
+        credentials = create_credentials(config.api.google_calendar)
+        service = google_client_builder("calendar", "v3", credentials=credentials)
 
-        handler = GCalWebhookHandler(calendar_client)
-        await handler.handle_notification(dict(request.headers), body)
+        # Create webhook channel
+        channel_id = str(uuid.uuid4())
+        expiration = int((datetime.now() + timedelta(days=7)).timestamp() * 1000)
+        webhook_url = f"{config.api.webhook_base_url}/webhook/google-calendar"
 
-        logger.debug("Successfully processed Google Calendar webhook notification")
-        return Response(status_code=200)
+        body = {
+            "id": channel_id,
+            "type": "web_hook",
+            "address": webhook_url,
+            "expiration": expiration,
+        }
+
+        service.events().watch(calendarId="primary", body=body).execute()
+        logger.info(f"Created webhook channel {channel_id} for primary calendar")
 
     except Exception as e:
-        logger.error(f"Error processing Google Calendar webhook notification: {str(e)}")
+        logger.error(f"Failed to create webhook channel: {str(e)}")
         logger.exception("Full traceback:")
-        return Response(status_code=200)
 
 
-@app.post("/webhook/todoist")
-async def todoist_webhook_endpoint(request: Request):
-    """Handle Todoist webhook notifications."""
-    logger.debug("Received Todoist webhook request")
-    logger.debug(f"Headers: {dict(request.headers)}")
-
-    try:
-        body = await request.json() if await request.body() else None
-        logger.debug(f"Request body: {body}")
-
-        handler = TodoistWebhookHandler()
-        await handler.handle_notification(dict(request.headers), body)
-
-        logger.debug("Successfully processed Todoist webhook notification")
-        return Response(status_code=200)
-
-    except Exception as e:
-        logger.error(f"Error processing Todoist webhook notification: {str(e)}")
-        logger.exception("Full traceback:")
-        return Response(status_code=200) 
+# Register webhook endpoints
+app.post("/webhook/google-calendar")(handle_gcal_webhook)
+app.post("/webhook/todoist")(handle_todoist_webhook)
