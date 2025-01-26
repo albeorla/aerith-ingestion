@@ -44,3 +44,10 @@ yarn-error.log*
 
 # idea files
 .idea
+
+# dev-agent logs
+dev-agent.log
+
+# Coverage files
+coverage/
+.tmp/

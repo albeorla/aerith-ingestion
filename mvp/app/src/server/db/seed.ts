@@ -1,6 +1,13 @@
-import { db } from "./index";
-import { users, purposes, visions, goals, areas, projects, tasks } from "./schema";
-import { sql } from "drizzle-orm";
+import {
+  areas,
+  db,
+  goals,
+  projects,
+  purposes,
+  tasks,
+  users,
+  visions,
+} from "@/server/db/schema";
 
 async function main() {
   console.log("🌱 Seeding database...");
@@ -9,8 +16,10 @@ async function main() {
   const [user] = await db
     .insert(users)
     .values({
+      id: "seed-user-id",
       name: "Test User",
       email: "test@example.com",
+      emailVerified: new Date(),
     })
     .returning();
 
@@ -22,7 +31,8 @@ async function main() {
     .values({
       userId: user!.id,
       name: "Live a balanced and fulfilling life",
-      description: "Create a life that balances personal growth, relationships, and impact",
+      description:
+        "Achieve harmony across personal, professional, and spiritual aspects of life",
       status: "active",
     })
     .returning();
@@ -36,7 +46,8 @@ async function main() {
       userId: user!.id,
       purposeId: purpose!.id,
       name: "5-Year Vision 2029",
-      description: "By 2029, establish a sustainable work-life balance while making meaningful contributions",
+      description:
+        "Become a recognized expert in software development while maintaining work-life balance",
       status: "active",
       targetDate: new Date("2029-12-31"),
     })
@@ -51,7 +62,8 @@ async function main() {
       userId: user!.id,
       visionId: vision!.id,
       name: "Master Software Development",
-      description: "Become proficient in modern software development practices and technologies",
+      description:
+        "Develop expertise in full-stack development and system design",
       status: "active",
       targetDate: new Date("2024-12-31"),
     })
@@ -66,7 +78,7 @@ async function main() {
       userId: user!.id,
       goalId: goal!.id,
       name: "Full-Stack Development",
-      description: "Focus on both frontend and backend development skills",
+      description: "Core skills and projects in full-stack development",
       status: "active",
     })
     .returning();
@@ -80,7 +92,8 @@ async function main() {
       userId: user!.id,
       areaId: area!.id,
       name: "Build Personal Project Portfolio",
-      description: "Create meaningful projects to demonstrate skills",
+      description:
+        "Create showcase projects demonstrating full-stack capabilities",
       status: "active",
       targetDate: new Date("2024-06-30"),
     })
@@ -94,7 +107,8 @@ async function main() {
       userId: user!.id,
       projectId: project!.id,
       name: "Setup Development Environment",
-      description: "Configure local development environment with necessary tools",
+      description:
+        "Configure local development environment with necessary tools",
       status: "completed" as const,
       dueDate: new Date("2024-01-15"),
     },
@@ -102,7 +116,7 @@ async function main() {
       userId: user!.id,
       projectId: project!.id,
       name: "Learn Next.js and Drizzle",
-      description: "Study and implement features using Next.js and Drizzle ORM",
+      description: "Complete tutorials and build sample applications",
       status: "active" as const,
       dueDate: new Date("2024-02-15"),
     },
@@ -130,4 +144,4 @@ async function main() {
 main().catch((e) => {
   console.error("Error seeding database:", e);
   process.exit(1);
-}); 
+});
