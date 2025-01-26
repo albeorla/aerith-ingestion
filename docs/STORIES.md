@@ -11,40 +11,87 @@
    - PostgreSQL setup
    - Drizzle ORM configuration
    - Basic schema setup
+   - Database seeding script
+   - Sample data hierarchy
+   - Development workflow automation
+   - Error handling and cleanup
+   - Persistent data volumes
 
-## Current Sprint Goals: Full GTD Hierarchy
+3. ✅ Project Structure
+   - Moved app to mvp/app directory
+   - Organized source code structure
+   - Set up Next.js configuration
+   - Configured development tooling
 
-### 1. Implement All GTD Models
+4. ✅ Core Entity Schema Setup
+   - Created schema directory structure
+   - Implemented all GTD levels:
+     - Purposes (50k ft)
+     - Visions (40k ft)
+     - Goals (30k ft)
+     - Areas (20k ft)
+     - Projects (10k ft)
+     - Tasks (Ground)
+   - Added proper indexes and relations
+   - Set up cascading deletes
+   - Implemented unique constraints
+   - Added sample data seeding
 
-#### 1.1 Core Entity Schema Setup
-```typescript
-// All entities follow similar pattern:
-{
-    id: text primary key,
-    userId: text references users(id),
-    parentId: text references parent_entity(id), // Specific to each level
-    name: text not null,
-    description: text,
-    status: enum(...), // Specific to each level
-    targetDate: timestamp, // For time-bound entities
-    createdAt: timestamp,
-    updatedAt: timestamp
-}
-```
+## Current Sprint Goals: API Layer
 
-Tasks:
-- [ ] Create Drizzle schemas for all levels:
-  - Purposes (50k ft)
-  - Visions (40k ft)
-  - Goals (30k ft)
-  - Areas (20k ft)
-  - Projects (10k ft)
-  - Tasks (Ground)
-- [ ] Add tRPC router for each entity
-- [ ] Implement basic CRUD operations
-- [ ] Add validation layer
+### 1. Implement tRPC Routers
 
-### 2. Basic UI Components
+#### 1.1 Base Router Setup
+- [ ] Set up tRPC context with auth
+- [ ] Create base router with error handling
+- [ ] Add input validation with Zod
+- [ ] Implement common CRUD patterns
+
+#### 1.2 Entity-Specific Routers
+Tasks for each entity type:
+- [ ] Purpose Router
+  - Create with validation
+  - List with filters
+  - Update with status transitions
+  - Delete with cascade
+  - Get by ID with relations
+
+- [ ] Vision Router
+  - Create with purpose validation
+  - List by purpose
+  - Update with status workflow
+  - Delete with cascade
+  - Get by ID with relations
+
+- [ ] Goal Router
+  - Create with vision validation
+  - List by vision
+  - Update with status workflow
+  - Delete with cascade
+  - Get by ID with relations
+
+- [ ] Area Router
+  - Create with goal validation
+  - List by goal
+  - Update with status workflow
+  - Delete with cascade
+  - Get by ID with relations
+
+- [ ] Project Router
+  - Create with area validation
+  - List by area
+  - Update with status workflow
+  - Delete with cascade
+  - Get by ID with relations
+
+- [ ] Task Router
+  - Create with project validation
+  - List by project
+  - Update with status workflow
+  - Delete
+  - Get by ID with relations
+
+### 2. UI Components
 
 #### 2.1 Entity Management Interface
 For each entity type:
@@ -61,8 +108,10 @@ For each entity type:
 - [ ] Add filtering by status
 
 ## Testing Priority
-1. Schema validation
-2. CRUD operations
-3. Status transitions
-4. Hierarchical integrity
-5. User isolation 
+1. ✅ Schema validation
+2. ✅ Database constraints
+3. ✅ Sample data integrity
+4. [ ] API input validation
+5. [ ] Status transitions
+6. [ ] Hierarchical integrity
+7. [ ] User isolation 
