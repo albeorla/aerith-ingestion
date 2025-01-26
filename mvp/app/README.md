@@ -27,3 +27,15 @@ You can check out the [create-t3-app GitHub repository](https://github.com/t3-os
 ## How do I deploy this?
 
 Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+
+## Additional Local Development Notes
+
+- If you'd like to run this project locally with Docker and seed your database, see "mvp/app/infra/LOCAL.md" for details on ephemeral vs. persistent volumes, applying migrations, and seeding data.
+- Sample workflow:
+  ```
+  npm run docker:up
+  npm run db:migrate
+  npm run db:seed
+  npm run dev
+  ```
+- This ensures your dev environment has a working Postgres instance and a seeded database.

@@ -1,0 +1,50 @@
+services:
+  dev-db:
+    image: postgres:15
+    container_name: dev-db
+    environment:
+      POSTGRES_DB: ${DB_NAME:-app}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+    ports:
+      - "5432:5432"
+    volumes:
+      - dev-db-data:/var/lib/postgresql/data
+    networks:
+      - dev-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  test-db:
+    image: postgres:15-alpine
+    container_name: app_test_db
+    environment:
+      POSTGRES_DB: ${TEST_DB_NAME:-test_db}
+      POSTGRES_USER: ${TEST_DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${TEST_DB_PASSWORD:-password}
+    ports:
+      - "5433:5432"
+    networks:
+      - test-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${TEST_DB_USER:-postgres}"]
+      interval: 2s
+      timeout: 2s
+      retries: 5
+    tmpfs:
+      - /var/lib/postgresql/data
+    restart: "no"
+
+volumes:
+  dev-db-data:
+    name: dev-db-data
+
+networks:
+  dev-network:
+    driver: bridge
+  test-network:
+    driver: bridge

@@ -7,12 +7,13 @@
  * need to use are documented accordingly near the end.
  */
 
+import { auth } from "@/server/auth";
 import { initTRPC, TRPCError } from "@trpc/server";
+import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
+import { type Session } from "next-auth";
 import superjson from "superjson";
 import { ZodError } from "zod";
-
-import { auth } from "@/server/auth";
-import { db } from "@/server/db";
+import { db } from "../db/schema";
 
 /**
  * 1. CONTEXT
@@ -26,14 +27,31 @@ import { db } from "@/server/db";
  *
  * @see https://trpc.io/docs/server/context
  */
-export const createTRPCContext = async (opts: { headers: Headers }) => {
+interface CreateContextOptions {
+  session: Session | null;
+}
+
+/**
+ * This helper creates the "contexts" that are available in all API routes.
+ * It will include the session and db connection.
+ */
+const createInnerTRPCContext = (opts: CreateContextOptions) => {
+  return {
+    session: opts.session,
+    db,
+  };
+};
+
+/**
+ * This is the actual context you will use in your router. It will be used to
+ * process every request that goes through your tRPC endpoint.
+ */
+export const createTRPCContext = async (_opts: CreateNextContextOptions) => {
   const session = await auth();
 
-  return {
-    db,
+  return createInnerTRPCContext({
     session,
-    ...opts,
-  };
+  });
 };
 
 /**
@@ -121,12 +139,13 @@ export const publicProcedure = t.procedure.use(timingMiddleware);
 export const protectedProcedure = t.procedure
   .use(timingMiddleware)
   .use(({ ctx, next }) => {
-    if (!ctx.session || !ctx.session.user) {
+    if (!ctx.session?.user) {
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }
     return next({
       ctx: {
-        // infers the `session` as non-nullable
+        ...ctx,
+        // Infers correct type that session.user is non-null
         session: { ...ctx.session, user: ctx.session.user },
       },
     });

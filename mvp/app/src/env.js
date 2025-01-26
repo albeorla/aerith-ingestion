@@ -3,50 +3,64 @@ import { z } from "zod";
 
 export const env = createEnv({
   /**
-   * Specify your server-side environment variables schema here. This way you can ensure the app
-   * isn't built with invalid env vars.
+   * Server-side environment variables schema.
+   * These variables are only available on the server and are validated at runtime.
    */
   server: {
+    // Authentication
     AUTH_SECRET:
       process.env.NODE_ENV === "production"
         ? z.string()
         : z.string().optional(),
     AUTH_DISCORD_ID: z.string(),
     AUTH_DISCORD_SECRET: z.string(),
+    NEXTAUTH_URL: z.string().url(),
+    NEXTAUTH_SECRET: z.string(),
+
+    // Database Configuration
     DATABASE_URL: z.string().url(),
+    TEST_DATABASE_URL: z.string().url().optional(),
+
+    // Environment
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
   },
 
   /**
-   * Specify your client-side environment variables schema here. This way you can ensure the app
-   * isn't built with invalid env vars. To expose them to the client, prefix them with
-   * `NEXT_PUBLIC_`.
+   * Client-side environment variables schema.
+   * These variables are exposed to the client and should be prefixed with `NEXT_PUBLIC_`.
+   * Currently no client-side environment variables are defined.
    */
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
   },
 
   /**
-   * You can't destruct `process.env` as a regular object in the Next.js edge runtimes (e.g.
-   * middlewares) or client-side so we need to destruct manually.
+   * Runtime environment variable processing.
+   * Special handling for test environment to use TEST_DATABASE_URL when available.
    */
   runtimeEnv: {
+    // Auth configuration
     AUTH_SECRET: process.env.AUTH_SECRET,
     AUTH_DISCORD_ID: process.env.AUTH_DISCORD_ID,
     AUTH_DISCORD_SECRET: process.env.AUTH_DISCORD_SECRET,
-    DATABASE_URL: process.env.DATABASE_URL,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+
+    // Database configuration with test environment support
+    DATABASE_URL: process.env.NODE_ENV === "test" && process.env.TEST_DATABASE_URL
+      ? process.env.TEST_DATABASE_URL
+      : process.env.DATABASE_URL,
+    TEST_DATABASE_URL: process.env.TEST_DATABASE_URL,
+
+    // Environment configuration
     NODE_ENV: process.env.NODE_ENV,
   },
+
   /**
-   * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
-   * useful for Docker builds.
+   * Configuration Options
    */
-  skipValidation: !!process.env.SKIP_ENV_VALIDATION,
-  /**
-   * Makes it so that empty strings are treated as undefined. `SOME_VAR: z.string()` and
-   * `SOME_VAR=''` will throw an error.
-   */
+  skipValidation: !!process.env.SKIP_ENV_VALIDATION || process.env.NODE_ENV === "test",
   emptyStringAsUndefined: true,
 });

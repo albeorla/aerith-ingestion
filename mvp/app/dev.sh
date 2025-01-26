@@ -12,6 +12,29 @@
 DB_CONTAINER_NAME="app-postgres"
 CLEANUP_ON_EXIT=true
 
+# Add test mode detection at the top
+TEST_MODE=false
+if [[ "$1" == "--test" ]]; then
+  TEST_MODE=true
+  DB_CONTAINER_NAME="test-postgres"
+  DB_PORT="5433"
+  # Construct test database URL
+  export DATABASE_URL="postgresql://postgres:${DB_PASSWORD}@localhost:${DB_PORT}/test_db?schema=public"
+  POSTGRES_DB="test_db"
+fi
+
+# Get port from env var if not in test mode
+if [ "$TEST_MODE" = false ]; then
+  DB_PORT=$(echo "$DATABASE_URL" | awk -F':' '{print $4}' | awk -F'\/' '{print $1}')
+fi
+
+# Database name configuration
+if [ "$TEST_MODE" = true ]; then
+  POSTGRES_DB="test_db"
+else
+  POSTGRES_DB="app"
+fi
+
 # Function to clean up database resources
 cleanup_database() {
   if [ "$CLEANUP_ON_EXIT" = true ]; then
@@ -72,10 +95,10 @@ if [ ! -f ".env" ]; then
 fi
 
 set -a
+
 source .env
 
 DB_PASSWORD=$(echo "$DATABASE_URL" | awk -F':' '{print $3}' | awk -F'@' '{print $1}')
-DB_PORT=$(echo "$DATABASE_URL" | awk -F':' '{print $4}' | awk -F'\/' '{print $1}')
 
 if [ "$DB_PASSWORD" = "password" ]; then
   echo "⚠️  You are using the default database password"
@@ -94,7 +117,7 @@ if ! docker run -d \
   --name $DB_CONTAINER_NAME \
   -e POSTGRES_USER="postgres" \
   -e POSTGRES_PASSWORD="$DB_PASSWORD" \
-  -e POSTGRES_DB=app \
+  -e POSTGRES_DB=$POSTGRES_DB \
   -p "$DB_PORT":5432 \
   -v ${DB_CONTAINER_NAME}-data:/var/lib/postgresql/data \
   docker.io/postgres; then
@@ -135,10 +158,12 @@ if ! npm run db:push; then
 fi
 
 # Seed the database
-echo "🌱 Seeding the database..."
-if ! npm run db:seed; then
-  echo "❌ Failed to seed database"
-  handle_error
+if [ "$TEST_MODE" = true ]; then
+  # Skip seeding in test mode
+  echo "⏭️ Skipping seeding in test mode"
+else
+  echo "🌱 Seeding the database..."
+  npm run db:seed
 fi
 
 echo "🎉 Database setup complete!"

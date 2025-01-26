@@ -1,46 +1,16 @@
 import { relations, sql } from "drizzle-orm";
 import {
   index,
-  pgTableCreator,
   text,
   timestamp,
+  uniqueIndex,
   uuid,
   varchar,
-  uniqueIndex,
 } from "drizzle-orm/pg-core";
-import { users } from "../schema";
-
-export const createTable = pgTableCreator((name) => `app_${name}`);
-
-export const purposes = createTable(
-  "purpose",
-  {
-    id: uuid("id").primaryKey().defaultRandom(),
-    userId: varchar("user_id", { length: 255 })
-      .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
-    name: varchar("name", { length: 100 }).notNull(),
-    description: text("description"),
-    status: varchar("status", { length: 20 })
-      .notNull()
-      .default("active")
-      .$type<"active" | "archived">(),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-  },
-  (table) => ({
-    userIdIdx: index("purpose_user_id_idx").on(table.userId),
-    statusIdx: index("purpose_status_idx").on(table.status),
-    uniqueNamePerUser: uniqueIndex("purpose_unique_name_per_user_idx").on(
-      table.userId,
-      table.name
-    ),
-  })
-);
+import { goals } from "./goals";
+import { purposes } from "./purposes";
+import { users } from "./users";
+import { createTable } from "./utils";
 
 export const visions = createTable(
   "vision",
@@ -73,18 +43,15 @@ export const visions = createTable(
     targetDateIdx: index("vision_target_date_idx").on(table.targetDate),
     uniqueNamePerUser: uniqueIndex("vision_unique_name_per_user_idx").on(
       table.userId,
-      table.name
+      table.name,
     ),
-  })
+  }),
 );
 
-export const purposesRelations = relations(purposes, ({ many }) => ({
-  visions: many(visions),
-}));
-
-export const visionsRelations = relations(visions, ({ one }) => ({
+export const visionsRelations = relations(visions, ({ one, many }) => ({
   purpose: one(purposes, {
     fields: [visions.purposeId],
     references: [purposes.id],
   }),
+  goals: many(goals),
 }));
