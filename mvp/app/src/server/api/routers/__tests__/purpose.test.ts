@@ -1,5 +1,5 @@
-import { purposes } from "@/server/db/schema/purposes";
 import { db } from "@/server/db/schema";
+import { purposes } from "@/server/db/schema/purposes";
 import { eq } from "drizzle-orm";
 import { beforeEach, describe, expect, it } from "vitest";
 import {
@@ -162,7 +162,9 @@ describe("purpose router", () => {
         status: "active" as const,
       };
 
-      await expect(caller.purpose.create(input)).rejects.toThrow("UNAUTHORIZED");
+      await expect(caller.purpose.create(input)).rejects.toThrow(
+        "UNAUTHORIZED",
+      );
     });
   });
 });

@@ -5,10 +5,10 @@ import { type InferModel, type Table, sql } from "drizzle-orm";
 import { type Session } from "next-auth";
 import { afterAll, afterEach, beforeEach, vi } from "vitest";
 import * as schema from "../../db/schema";
+import { db } from "@/server/db/schema";
+import { getDb } from "../../db/testing/test-db";
 import { appRouter } from "../root";
 import { createTRPCContext } from "../trpc";
-import { getDb } from "../../db/testing/test-db";
-import { db } from "../../db/schema";
 
 export type AppRouter = typeof appRouter;
 
@@ -75,6 +75,13 @@ export async function createTestContext(session: Session | null = null) {
   const ctx = await createTRPCContext(opts);
   return {
     ...ctx,
+    setup: async () => {
+      await db.execute(sql`BEGIN TRANSACTION ISOLATION LEVEL SERIALIZABLE;`);
+    },
+    teardown: async () => {
+      await db.execute(sql`ROLLBACK;`);
+      await db.execute(sql`COMMIT;`);
+    },
     session,
     db,
   };
@@ -165,34 +172,16 @@ export async function setupTestData() {
 
 // Reset database before each test
 beforeEach(async () => {
-  try {
-    // Add connection check with retry
-    let retries = 5;
-    while (retries > 0) {
-      try {
-        await getDb().execute(sql`SELECT 1`);
-        break;
-      } catch (error) {
-        retries--;
-        if (retries === 0) throw error;
-        await new Promise(resolve => setTimeout(resolve, 1000));
-      }
-    }
-
+  await db.transaction(async (tx) => {
     await setupTestData();
-  } catch (error) {
-    console.error("Test setup error:", error);
-    throw error;
-  }
+  });
 });
 
 afterEach(async () => {
-  try {
+  await db.transaction(async (tx) => {
     await cleanupTestData();
-    vi.resetAllMocks();
-  } catch (error) {
-    console.error("Test cleanup error:", error);
-  }
+  });
+  vi.resetAllMocks();
 });
 
 // Close database connection after all tests

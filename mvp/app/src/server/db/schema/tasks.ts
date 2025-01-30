@@ -40,8 +40,8 @@ export const tasks = createTable(
     projectIdIdx: index("task_project_id_idx").on(table.projectId),
     statusIdx: index("task_status_idx").on(table.status),
     dueDateIdx: index("task_due_date_idx").on(table.dueDate),
-    uniqueNamePerUser: uniqueIndex("task_unique_name_per_user_idx").on(
-      table.userId,
+    uniqueNamePerUser: uniqueIndex("task_unique_name_per_project_idx").on(
+      table.projectId,
       table.name,
     ),
   }),

@@ -43,8 +43,8 @@ export const goals = createTable(
     visionIdIdx: index("goal_vision_id_idx").on(table.visionId),
     statusIdx: index("goal_status_idx").on(table.status),
     targetDateIdx: index("goal_target_date_idx").on(table.targetDate),
-    uniqueNamePerUser: uniqueIndex("goal_unique_name_per_user_idx").on(
-      table.userId,
+    uniqueNamePerUser: uniqueIndex("goal_unique_name_per_vision_idx").on(
+      table.visionId,
       table.name,
     ),
   }),

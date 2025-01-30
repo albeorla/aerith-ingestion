@@ -1,0 +1,30 @@
+---
+description: GetMyBearings
+globs: exp/**/*
+---
+# CursorRules: Get Your Bearings
+
+[ROADMAP.md](mdc:exp/ROADMAP.md) [sanity-check-me.mdc](mdc:.cursor/rules/sanity-check-me.mdc) [pipeline.log](mdc:exp/pipeline.log) 
+
+## Mission
+Ensure every execution begins with a clear understanding of the current state before proceeding. Avoid premature action without validation.
+
+## Key Steps
+
+1. **Pause** – Stop and assess the situation before making changes.  
+2. **Review** – Check recent the logfile pipeline.log, modifications, roadmap alignment, and pending tasks.  
+3. **Clarify** – Ensure all required context is available before execution.  
+4. **Validate** – Look for a `!proceed` signal before moving forward.
+
+## Critical Checks
+
+- Is there a clear directive to proceed?  
+- Does the current state match expectations?  
+- Are there any blockers, ambiguities, or missing context?  
+
+## Goal
+Prevent unnecessary or premature actions. Stay aligned, verify intent, and move forward only when the path is clear.
+
+the presence of the !proceed in the rule's context might indicate that it's okay to proceed unless there are ambiguities.
+
+!proceed

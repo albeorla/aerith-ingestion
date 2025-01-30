@@ -3,6 +3,7 @@ import { and, eq, sql } from "drizzle-orm";
 import { z } from "zod";
 import { areas, goals, visions } from "../../db/schema";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { PostgresError } from "postgres";
 
 // Goal status type from schema
 type GoalStatus = typeof goals.$inferSelect.status;
@@ -58,10 +59,29 @@ export const goalRouter = createTRPCRouter({
         });
       }
 
-      return ctx.db.insert(goals).values({
-        ...input,
-        userId: ctx.session.user.id,
-      });
+      try {
+        return ctx.db
+          .insert(goals)
+          .values({
+            ...input,
+            userId: ctx.session.user.id,
+          })
+          .returning();
+      } catch (error) {
+        if (error instanceof PostgresError) {
+          if (error.code === '23505') {
+            throw new TRPCError({
+              code: 'CONFLICT',
+              message: 'Goal name must be unique within this vision'
+            });
+          }
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: 'Database error'
+          });
+        }
+        throw error;
+      }
     }),
 
   list: protectedProcedure
@@ -169,7 +189,7 @@ export const goalRouter = createTRPCRouter({
         }
       }
 
-      return ctx.db.update(goals).set(data).where(eq(goals.id, id));
+      return ctx.db.update(goals).set(data).where(eq(goals.id, id)).returning();
     }),
 
   delete: protectedProcedure

@@ -56,10 +56,13 @@ export const areaRouter = createTRPCRouter({
         });
       }
 
-      return ctx.db.insert(areas).values({
-        ...input,
-        userId: ctx.session.user.id,
-      });
+      return ctx.db
+        .insert(areas)
+        .values({
+          ...input,
+          userId: ctx.session.user.id,
+        })
+        .returning();
     }),
 
   list: protectedProcedure
@@ -188,7 +191,7 @@ export const areaRouter = createTRPCRouter({
         }
       }
 
-      return ctx.db.update(areas).set(data).where(eq(areas.id, id));
+      return ctx.db.update(areas).set(data).where(eq(areas.id, id)).returning();
     }),
 
   delete: protectedProcedure

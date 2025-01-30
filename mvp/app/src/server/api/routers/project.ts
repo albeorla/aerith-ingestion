@@ -60,10 +60,13 @@ export const projectRouter = createTRPCRouter({
         });
       }
 
-      return ctx.db.insert(projects).values({
-        ...input,
-        userId: ctx.session.user.id,
-      });
+      return ctx.db
+        .insert(projects)
+        .values({
+          ...input,
+          userId: ctx.session.user.id,
+        })
+        .returning();
     }),
 
   list: protectedProcedure
@@ -200,7 +203,11 @@ export const projectRouter = createTRPCRouter({
         }
       }
 
-      return ctx.db.update(projects).set(data).where(eq(projects.id, id));
+      return ctx.db
+        .update(projects)
+        .set(data)
+        .where(eq(projects.id, id))
+        .returning();
     }),
 
   delete: protectedProcedure

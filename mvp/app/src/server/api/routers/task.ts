@@ -58,10 +58,13 @@ export const taskRouter = createTRPCRouter({
         });
       }
 
-      return ctx.db.insert(tasks).values({
-        ...input,
-        userId: ctx.session.user.id,
-      });
+      return ctx.db
+        .insert(tasks)
+        .values({
+          ...input,
+          userId: ctx.session.user.id,
+        })
+        .returning();
     }),
 
   list: protectedProcedure
@@ -167,7 +170,7 @@ export const taskRouter = createTRPCRouter({
         }
       }
 
-      return ctx.db.update(tasks).set(data).where(eq(tasks.id, id));
+      return ctx.db.update(tasks).set(data).where(eq(tasks.id, id)).returning();
     }),
 
   delete: protectedProcedure

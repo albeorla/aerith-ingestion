@@ -1,0 +1,56 @@
+---
+description: SanityCheckMe
+globs: **/*.{js,ts,md,json,py,txt,yml,Makefile}
+---
+# CursorRules: SanityCheck Validation
+
+## Mission
+Enforce a deliberate validation step before making changes, ensuring modifications align with project objectives and software best practices.
+
+## Code Files to Monitor
+
+### Primary Files
+- [ROADMAP.md](mdc:exp/ROADMAP.md) 
+.
+├── Makefile
+├── ROADMAP.md
+├── backoff_config.py
+├── data_storage.py
+├── environment_config.py
+├── error_handler.py
+├── gemini_service.py
+├── gtd_processor.py
+├── interfaces.py
+├── main
+├── models.py
+├── monitoring.py
+├── output
+│   ├── projects.json
+│   └── tasks.json
+├── prompt_templates.py
+├── rate_limiter.py
+├── request_manager.py
+├── requirements.txt
+└── todoist_service.py
+
+2 directories, 20 files
+
+
+## Validation Questions
+Before proceeding with any change, confirm:
+1. **Alignment** – Is this in line with project goals and constraints?  
+2. **Best Practices** – Are software development best practices upheld?  
+3. **Scope Control** – Does this fit within the current milestone?  
+4. **Roadmap Compliance** – Are we following `ROADMAP.md`?  
+5. **Context Adequacy** – Does the request provide enough details?  
+6. **Technical Debt Reduction** – Does this remove dead code, refactor efficiently, or balance refactoring cost vs. benefit?
+
+## Workflow
+
+1. **Pause & Prioritize** – Gather thoughts before execution, plan next steps.  
+2. **Assess Next Tasks** – Identify what needs to be worked on next.  
+3. **Update the Roadmap** – Adjust `ROADMAP.md` if needed.  
+4. **Document Work Items** – Log upcoming tasks for transparency.  
+
+## Goal
+Prevent unnecessary scope creep, maintain alignment with the technical roadmap, and actively reduce negative technical debt while considering the cost of refactoring.

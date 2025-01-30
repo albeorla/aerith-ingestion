@@ -1,0 +1,5 @@
+---
+description: Google Gen AI SDK
+globs: 
+---
+We are using the Google Gen AI Package especially in @gemini_service.py @requirements.txt

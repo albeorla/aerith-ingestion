@@ -44,8 +44,8 @@ export const projects = createTable(
     areaIdIdx: index("project_area_id_idx").on(table.areaId),
     statusIdx: index("project_status_idx").on(table.status),
     targetDateIdx: index("project_target_date_idx").on(table.targetDate),
-    uniqueNamePerUser: uniqueIndex("project_unique_name_per_user_idx").on(
-      table.userId,
+    uniqueNamePerUser: uniqueIndex("project_unique_name_per_area_idx").on(
+      table.areaId,
       table.name,
     ),
   }),

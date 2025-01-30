@@ -1,0 +1,814 @@
+2025-01-30 05:09:46,317 | INFO | prefect | Starting temporary server on http://127.0.0.1:8189
+See https://docs.prefect.io/3.0/manage/self-host#self-host-a-prefect-server for more information on running a dedicated Prefect server.
+2025-01-30 05:09:49,358 | DEBUG | prefect.utilities.urls | No URL found for the Prefect UI, and no default base path provided.
+2025-01-30 05:09:49,388 | DEBUG | prefect.task_runner.threadpool | Starting task runner
+2025-01-30 05:09:49,389 | INFO | prefect.flow_runs | Beginning flow run 'jasmine-slug' for flow 'todoist-pipeline'
+2025-01-30 05:09:49,390 | DEBUG | prefect.utilities.urls | No URL found for the Prefect UI, and no default base path provided.
+2025-01-30 05:09:49,390 | DEBUG | prefect.flow_runs | Executing flow 'todoist-pipeline' for flow run 'jasmine-slug'...
+2025-01-30 05:09:49,391 | INFO | prefect.flow_runs | Pipeline started: Initializing services...
+2025-01-30 05:09:49,415 | DEBUG | prefect.task_runs | Created task run 'initialize_services-83e' for task 'initialize_services'
+2025-01-30 05:09:49,416 | DEBUG | prefect.task_runs | Executing task 'initialize_services' for task run 'initialize_services-83e'...
+2025-01-30 05:09:49,419 | INFO | prefect.flow_runs | Current working directory: /Users/aorlando/Documents/aerith-ingestion/mvp/exp
+2025-01-30 05:09:49,419 | INFO | prefect.flow_runs | Environment Configuration:
+2025-01-30 05:09:49,419 | INFO | prefect.flow_runs | Environment variable 'TODOIST_API_TOKEN' found. Value: 54340781221a215e34dd307f59079c5bcb38d42f
+2025-01-30 05:09:49,419 | INFO | prefect.flow_runs | Environment variable 'GOOGLE_API_KEY' found. Value: AIzaSyDVzoMIr5rIUEIHyOtAR2BHeXqy4zyIIjk
+2025-01-30 05:09:49,419 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MODEL_NAME' found. Value: gemini-2.0-flash-exp
+2025-01-30 05:09:49,419 | INFO | prefect.flow_runs | Using Gemini model: gemini-2.0-flash-exp
+2025-01-30 05:09:49,420 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:09:49,420 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:09:49,420 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:09:49,420 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:09:49,420 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:09:49,420 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:09:49,420 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:09:49,420 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:09:49,420 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:09:49,420 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:09:49,420 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:09:49,420 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:09:49,420 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:09:49,421 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:09:49,421 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:09:49,421 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:09:49,421 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:09:49,421 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:09:49,421 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:09:49,421 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:09:49,421 | INFO | prefect.flow_runs | 
+==============================
+
+=== Relevant Environment Configuration ===
+TODOIST_API_TOKEN             : 5434****d42f
+GOOGLE_API_KEY                : AIza****IIjk
+GEMINI_MODEL_NAME             : gemini-2.0-flash-exp
+GEMINI_TEMPERATURE            : 0.3
+GEMINI_TOP_P                  : 0.9
+GEMINI_TOP_K                  : 50
+GEMINI_MAX_OUTPUT_TOKENS      : 256
+==============================
+
+2025-01-30 05:09:49,421 | INFO | prefect.flow_runs | Environment variable 'GOOGLE_API_KEY' found. Value: AIzaSyDVzoMIr5rIUEIHyOtAR2BHeXqy4zyIIjk
+2025-01-30 05:09:49,421 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MODEL_NAME' found. Value: gemini-2.0-flash-exp
+2025-01-30 05:09:49,421 | INFO | prefect.flow_runs | Using Gemini model: gemini-2.0-flash-exp
+2025-01-30 05:09:49,421 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:09:49,422 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:09:49,422 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:09:49,422 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:09:49,422 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:09:49,422 | ERROR | prefect.task_runs | Task run failed with exception: AttributeError("'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'") - Retries are exhausted
+Traceback (most recent call last):
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 805, in run_context
+    yield self
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1387, in run_task_sync
+    engine.call_task_fn(txn)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 828, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/utilities/callables.py", line 208, in call_with_parameters
+    return fn(*args, **kwargs)
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 91, in initialize_services
+    gemini_service = GeminiService(
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/gemini_service.py", line 72, in __init__
+    self.safety_settings = env_config.get_gemini_safety_settings()
+AttributeError: 'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'
+2025-01-30 05:09:49,427 | ERROR | prefect.task_runs | Finished in state Failed("Task run encountered an exception AttributeError: 'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'")
+2025-01-30 05:09:49,427 | INFO | prefect.flow_runs | Pipeline execution completed.
+2025-01-30 05:09:49,427 | INFO | prefect.flow_runs | GEMINI_SERVICE METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+REQUEST_MANAGER METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+GTD_PROCESSOR METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+DATA_STORAGE METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+TODOIST_SERVICE METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+2025-01-30 05:09:49,427 | ERROR | prefect.flow_runs | Encountered exception during execution: UnboundLocalError("local variable 'error_handler' referenced before assignment")
+Traceback (most recent call last):
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 390, in todoist_pipeline
+    gtd_processor, data_storage, error_handler = initialize_services(logger, monitor)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/tasks.py", line 1035, in __call__
+    return run_task(
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1576, in run_task
+    return run_task_sync(**kwargs)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1389, in run_task_sync
+    return engine.state if return_type == "state" else engine.result()
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 482, in result
+    raise self._raised
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 805, in run_context
+    yield self
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1387, in run_task_sync
+    engine.call_task_fn(txn)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 828, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/utilities/callables.py", line 208, in call_with_parameters
+    return fn(*args, **kwargs)
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 91, in initialize_services
+    gemini_service = GeminiService(
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/gemini_service.py", line 72, in __init__
+    self.safety_settings = env_config.get_gemini_safety_settings()
+AttributeError: 'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1316, in run_context
+    yield self
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1378, in run_flow_async
+    await engine.call_flow_fn()
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1330, in call_flow_fn
+    result = await call_with_parameters(self.flow.fn, self.parameters)
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 427, in todoist_pipeline
+    await error_handler.handle_error(e, context, ErrorSeverity.FATAL)
+UnboundLocalError: local variable 'error_handler' referenced before assignment
+2025-01-30 05:09:49,452 | INFO | prefect.flow_runs | Received non-final state 'AwaitingRetry' when proposing final state 'Failed' and will attempt to run again...
+2025-01-30 05:09:49,471 | DEBUG | prefect.engine | Received wait instruction for 30s: Scheduled time is in the future
+2025-01-30 05:10:19,504 | DEBUG | prefect.task_runner.threadpool | Stopping task runner
+2025-01-30 05:10:19,512 | DEBUG | prefect.task_runner.threadpool | Starting task runner
+2025-01-30 05:10:19,513 | INFO | prefect.flow_runs | Beginning flow run 'jasmine-slug' for flow 'todoist-pipeline'
+2025-01-30 05:10:19,513 | DEBUG | prefect.utilities.urls | No URL found for the Prefect UI, and no default base path provided.
+2025-01-30 05:10:19,513 | DEBUG | prefect.flow_runs | Executing flow 'todoist-pipeline' for flow run 'jasmine-slug'...
+2025-01-30 05:10:19,514 | INFO | prefect.flow_runs | Pipeline started: Initializing services...
+2025-01-30 05:10:19,533 | DEBUG | prefect.task_runs | Created task run 'initialize_services-081' for task 'initialize_services'
+2025-01-30 05:10:19,535 | DEBUG | prefect.task_runs | Executing task 'initialize_services' for task run 'initialize_services-081'...
+2025-01-30 05:10:19,537 | INFO | prefect.flow_runs | Current working directory: /Users/aorlando/Documents/aerith-ingestion/mvp/exp
+2025-01-30 05:10:19,538 | INFO | prefect.flow_runs | Environment Configuration:
+2025-01-30 05:10:19,538 | INFO | prefect.flow_runs | Environment variable 'TODOIST_API_TOKEN' found. Value: 54340781221a215e34dd307f59079c5bcb38d42f
+2025-01-30 05:10:19,538 | INFO | prefect.flow_runs | Environment variable 'GOOGLE_API_KEY' found. Value: AIzaSyDVzoMIr5rIUEIHyOtAR2BHeXqy4zyIIjk
+2025-01-30 05:10:19,538 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MODEL_NAME' found. Value: gemini-2.0-flash-exp
+2025-01-30 05:10:19,538 | INFO | prefect.flow_runs | Using Gemini model: gemini-2.0-flash-exp
+2025-01-30 05:10:19,538 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:10:19,539 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:10:19,539 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:10:19,539 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:10:19,539 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:10:19,539 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:10:19,539 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:10:19,540 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:10:19,540 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:10:19,540 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:10:19,540 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:10:19,540 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:10:19,540 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:10:19,540 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:10:19,541 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:10:19,541 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:10:19,541 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:10:19,541 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:10:19,541 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:10:19,541 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:10:19,542 | INFO | prefect.flow_runs | 
+==============================
+
+=== Relevant Environment Configuration ===
+TODOIST_API_TOKEN             : 5434****d42f
+GOOGLE_API_KEY                : AIza****IIjk
+GEMINI_MODEL_NAME             : gemini-2.0-flash-exp
+GEMINI_TEMPERATURE            : 0.3
+GEMINI_TOP_P                  : 0.9
+GEMINI_TOP_K                  : 50
+GEMINI_MAX_OUTPUT_TOKENS      : 256
+==============================
+
+2025-01-30 05:10:19,542 | INFO | prefect.flow_runs | Environment variable 'GOOGLE_API_KEY' found. Value: AIzaSyDVzoMIr5rIUEIHyOtAR2BHeXqy4zyIIjk
+2025-01-30 05:10:19,542 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MODEL_NAME' found. Value: gemini-2.0-flash-exp
+2025-01-30 05:10:19,542 | INFO | prefect.flow_runs | Using Gemini model: gemini-2.0-flash-exp
+2025-01-30 05:10:19,542 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:10:19,542 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:10:19,543 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:10:19,543 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:10:19,543 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:10:19,543 | ERROR | prefect.task_runs | Task run failed with exception: AttributeError("'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'") - Retries are exhausted
+Traceback (most recent call last):
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 805, in run_context
+    yield self
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1387, in run_task_sync
+    engine.call_task_fn(txn)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 828, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/utilities/callables.py", line 208, in call_with_parameters
+    return fn(*args, **kwargs)
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 91, in initialize_services
+    gemini_service = GeminiService(
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/gemini_service.py", line 72, in __init__
+    self.safety_settings = env_config.get_gemini_safety_settings()
+AttributeError: 'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'
+2025-01-30 05:10:19,546 | ERROR | prefect.task_runs | Finished in state Failed("Task run encountered an exception AttributeError: 'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'")
+2025-01-30 05:10:19,547 | INFO | prefect.flow_runs | Pipeline execution completed.
+2025-01-30 05:10:19,547 | INFO | prefect.flow_runs | GEMINI_SERVICE METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+REQUEST_MANAGER METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+GTD_PROCESSOR METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+DATA_STORAGE METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+TODOIST_SERVICE METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+2025-01-30 05:10:19,547 | ERROR | prefect.flow_runs | Encountered exception during execution: UnboundLocalError("local variable 'error_handler' referenced before assignment")
+Traceback (most recent call last):
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 390, in todoist_pipeline
+    gtd_processor, data_storage, error_handler = initialize_services(logger, monitor)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/tasks.py", line 1035, in __call__
+    return run_task(
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1576, in run_task
+    return run_task_sync(**kwargs)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1389, in run_task_sync
+    return engine.state if return_type == "state" else engine.result()
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 482, in result
+    raise self._raised
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 805, in run_context
+    yield self
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1387, in run_task_sync
+    engine.call_task_fn(txn)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 828, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/utilities/callables.py", line 208, in call_with_parameters
+    return fn(*args, **kwargs)
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 91, in initialize_services
+    gemini_service = GeminiService(
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/gemini_service.py", line 72, in __init__
+    self.safety_settings = env_config.get_gemini_safety_settings()
+AttributeError: 'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1316, in run_context
+    yield self
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1378, in run_flow_async
+    await engine.call_flow_fn()
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1330, in call_flow_fn
+    result = await call_with_parameters(self.flow.fn, self.parameters)
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 427, in todoist_pipeline
+    await error_handler.handle_error(e, context, ErrorSeverity.FATAL)
+UnboundLocalError: local variable 'error_handler' referenced before assignment
+2025-01-30 05:10:19,568 | INFO | prefect.flow_runs | Received non-final state 'AwaitingRetry' when proposing final state 'Failed' and will attempt to run again...
+2025-01-30 05:10:19,582 | DEBUG | prefect.engine | Received wait instruction for 30s: Scheduled time is in the future
+2025-01-30 05:10:49,608 | DEBUG | prefect.task_runner.threadpool | Stopping task runner
+2025-01-30 05:10:49,617 | DEBUG | prefect.task_runner.threadpool | Starting task runner
+2025-01-30 05:10:49,617 | INFO | prefect.flow_runs | Beginning flow run 'jasmine-slug' for flow 'todoist-pipeline'
+2025-01-30 05:10:49,618 | DEBUG | prefect.utilities.urls | No URL found for the Prefect UI, and no default base path provided.
+2025-01-30 05:10:49,618 | DEBUG | prefect.flow_runs | Executing flow 'todoist-pipeline' for flow run 'jasmine-slug'...
+2025-01-30 05:10:49,618 | INFO | prefect.flow_runs | Pipeline started: Initializing services...
+2025-01-30 05:10:49,635 | DEBUG | prefect.task_runs | Created task run 'initialize_services-3cf' for task 'initialize_services'
+2025-01-30 05:10:49,637 | DEBUG | prefect.task_runs | Executing task 'initialize_services' for task run 'initialize_services-3cf'...
+2025-01-30 05:10:49,640 | INFO | prefect.flow_runs | Current working directory: /Users/aorlando/Documents/aerith-ingestion/mvp/exp
+2025-01-30 05:10:49,640 | INFO | prefect.flow_runs | Environment Configuration:
+2025-01-30 05:10:49,640 | INFO | prefect.flow_runs | Environment variable 'TODOIST_API_TOKEN' found. Value: 54340781221a215e34dd307f59079c5bcb38d42f
+2025-01-30 05:10:49,641 | INFO | prefect.flow_runs | Environment variable 'GOOGLE_API_KEY' found. Value: AIzaSyDVzoMIr5rIUEIHyOtAR2BHeXqy4zyIIjk
+2025-01-30 05:10:49,641 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MODEL_NAME' found. Value: gemini-2.0-flash-exp
+2025-01-30 05:10:49,641 | INFO | prefect.flow_runs | Using Gemini model: gemini-2.0-flash-exp
+2025-01-30 05:10:49,641 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:10:49,641 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:10:49,641 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:10:49,642 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:10:49,642 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:10:49,642 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:10:49,642 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:10:49,642 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:10:49,642 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:10:49,642 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:10:49,642 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:10:49,642 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:10:49,642 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:10:49,642 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:10:49,642 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:10:49,642 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:10:49,643 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:10:49,643 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:10:49,643 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:10:49,643 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:10:49,643 | INFO | prefect.flow_runs | 
+==============================
+
+=== Relevant Environment Configuration ===
+TODOIST_API_TOKEN             : 5434****d42f
+GOOGLE_API_KEY                : AIza****IIjk
+GEMINI_MODEL_NAME             : gemini-2.0-flash-exp
+GEMINI_TEMPERATURE            : 0.3
+GEMINI_TOP_P                  : 0.9
+GEMINI_TOP_K                  : 50
+GEMINI_MAX_OUTPUT_TOKENS      : 256
+==============================
+
+2025-01-30 05:10:49,643 | INFO | prefect.flow_runs | Environment variable 'GOOGLE_API_KEY' found. Value: AIzaSyDVzoMIr5rIUEIHyOtAR2BHeXqy4zyIIjk
+2025-01-30 05:10:49,643 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MODEL_NAME' found. Value: gemini-2.0-flash-exp
+2025-01-30 05:10:49,643 | INFO | prefect.flow_runs | Using Gemini model: gemini-2.0-flash-exp
+2025-01-30 05:10:49,643 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:10:49,643 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:10:49,644 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:10:49,644 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:10:49,644 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:10:49,644 | ERROR | prefect.task_runs | Task run failed with exception: AttributeError("'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'") - Retries are exhausted
+Traceback (most recent call last):
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 805, in run_context
+    yield self
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1387, in run_task_sync
+    engine.call_task_fn(txn)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 828, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/utilities/callables.py", line 208, in call_with_parameters
+    return fn(*args, **kwargs)
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 91, in initialize_services
+    gemini_service = GeminiService(
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/gemini_service.py", line 72, in __init__
+    self.safety_settings = env_config.get_gemini_safety_settings()
+AttributeError: 'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'
+2025-01-30 05:10:49,648 | ERROR | prefect.task_runs | Finished in state Failed("Task run encountered an exception AttributeError: 'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'")
+2025-01-30 05:10:49,649 | INFO | prefect.flow_runs | Pipeline execution completed.
+2025-01-30 05:10:49,649 | INFO | prefect.flow_runs | GEMINI_SERVICE METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+REQUEST_MANAGER METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+GTD_PROCESSOR METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+DATA_STORAGE METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+TODOIST_SERVICE METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+2025-01-30 05:10:49,649 | ERROR | prefect.flow_runs | Encountered exception during execution: UnboundLocalError("local variable 'error_handler' referenced before assignment")
+Traceback (most recent call last):
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 390, in todoist_pipeline
+    gtd_processor, data_storage, error_handler = initialize_services(logger, monitor)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/tasks.py", line 1035, in __call__
+    return run_task(
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1576, in run_task
+    return run_task_sync(**kwargs)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1389, in run_task_sync
+    return engine.state if return_type == "state" else engine.result()
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 482, in result
+    raise self._raised
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 805, in run_context
+    yield self
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1387, in run_task_sync
+    engine.call_task_fn(txn)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 828, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/utilities/callables.py", line 208, in call_with_parameters
+    return fn(*args, **kwargs)
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 91, in initialize_services
+    gemini_service = GeminiService(
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/gemini_service.py", line 72, in __init__
+    self.safety_settings = env_config.get_gemini_safety_settings()
+AttributeError: 'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1316, in run_context
+    yield self
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1378, in run_flow_async
+    await engine.call_flow_fn()
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1330, in call_flow_fn
+    result = await call_with_parameters(self.flow.fn, self.parameters)
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 427, in todoist_pipeline
+    await error_handler.handle_error(e, context, ErrorSeverity.FATAL)
+UnboundLocalError: local variable 'error_handler' referenced before assignment
+2025-01-30 05:10:49,690 | INFO | prefect.flow_runs | Received non-final state 'AwaitingRetry' when proposing final state 'Failed' and will attempt to run again...
+2025-01-30 05:10:49,708 | DEBUG | prefect.engine | Received wait instruction for 30s: Scheduled time is in the future
+2025-01-30 05:11:19,739 | DEBUG | prefect.task_runner.threadpool | Stopping task runner
+2025-01-30 05:11:19,747 | DEBUG | prefect.task_runner.threadpool | Starting task runner
+2025-01-30 05:11:19,747 | INFO | prefect.flow_runs | Beginning flow run 'jasmine-slug' for flow 'todoist-pipeline'
+2025-01-30 05:11:19,748 | DEBUG | prefect.utilities.urls | No URL found for the Prefect UI, and no default base path provided.
+2025-01-30 05:11:19,748 | DEBUG | prefect.flow_runs | Executing flow 'todoist-pipeline' for flow run 'jasmine-slug'...
+2025-01-30 05:11:19,748 | INFO | prefect.flow_runs | Pipeline started: Initializing services...
+2025-01-30 05:11:19,766 | DEBUG | prefect.task_runs | Created task run 'initialize_services-a62' for task 'initialize_services'
+2025-01-30 05:11:19,768 | DEBUG | prefect.task_runs | Executing task 'initialize_services' for task run 'initialize_services-a62'...
+2025-01-30 05:11:19,770 | INFO | prefect.flow_runs | Current working directory: /Users/aorlando/Documents/aerith-ingestion/mvp/exp
+2025-01-30 05:11:19,770 | INFO | prefect.flow_runs | Environment Configuration:
+2025-01-30 05:11:19,771 | INFO | prefect.flow_runs | Environment variable 'TODOIST_API_TOKEN' found. Value: 54340781221a215e34dd307f59079c5bcb38d42f
+2025-01-30 05:11:19,771 | INFO | prefect.flow_runs | Environment variable 'GOOGLE_API_KEY' found. Value: AIzaSyDVzoMIr5rIUEIHyOtAR2BHeXqy4zyIIjk
+2025-01-30 05:11:19,771 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MODEL_NAME' found. Value: gemini-2.0-flash-exp
+2025-01-30 05:11:19,771 | INFO | prefect.flow_runs | Using Gemini model: gemini-2.0-flash-exp
+2025-01-30 05:11:19,771 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:11:19,771 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:11:19,771 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:11:19,771 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:11:19,772 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:11:19,772 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:11:19,772 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:11:19,772 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:11:19,772 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:11:19,772 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:11:19,772 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:11:19,772 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:11:19,772 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:11:19,772 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:11:19,772 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:11:19,772 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:11:19,773 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:11:19,773 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:11:19,773 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:11:19,773 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:11:19,773 | INFO | prefect.flow_runs | 
+==============================
+
+=== Relevant Environment Configuration ===
+TODOIST_API_TOKEN             : 5434****d42f
+GOOGLE_API_KEY                : AIza****IIjk
+GEMINI_MODEL_NAME             : gemini-2.0-flash-exp
+GEMINI_TEMPERATURE            : 0.3
+GEMINI_TOP_P                  : 0.9
+GEMINI_TOP_K                  : 50
+GEMINI_MAX_OUTPUT_TOKENS      : 256
+==============================
+
+2025-01-30 05:11:19,773 | INFO | prefect.flow_runs | Environment variable 'GOOGLE_API_KEY' found. Value: AIzaSyDVzoMIr5rIUEIHyOtAR2BHeXqy4zyIIjk
+2025-01-30 05:11:19,773 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MODEL_NAME' found. Value: gemini-2.0-flash-exp
+2025-01-30 05:11:19,774 | INFO | prefect.flow_runs | Using Gemini model: gemini-2.0-flash-exp
+2025-01-30 05:11:19,774 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:11:19,774 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:11:19,774 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:11:19,774 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:11:19,774 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:11:19,774 | ERROR | prefect.task_runs | Task run failed with exception: AttributeError("'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'") - Retries are exhausted
+Traceback (most recent call last):
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 805, in run_context
+    yield self
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1387, in run_task_sync
+    engine.call_task_fn(txn)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 828, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/utilities/callables.py", line 208, in call_with_parameters
+    return fn(*args, **kwargs)
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 91, in initialize_services
+    gemini_service = GeminiService(
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/gemini_service.py", line 72, in __init__
+    self.safety_settings = env_config.get_gemini_safety_settings()
+AttributeError: 'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'
+2025-01-30 05:11:19,779 | ERROR | prefect.task_runs | Finished in state Failed("Task run encountered an exception AttributeError: 'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'")
+2025-01-30 05:11:19,779 | INFO | prefect.flow_runs | Pipeline execution completed.
+2025-01-30 05:11:19,779 | INFO | prefect.flow_runs | GEMINI_SERVICE METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+REQUEST_MANAGER METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+GTD_PROCESSOR METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+DATA_STORAGE METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+TODOIST_SERVICE METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+2025-01-30 05:11:19,780 | ERROR | prefect.flow_runs | Encountered exception during execution: UnboundLocalError("local variable 'error_handler' referenced before assignment")
+Traceback (most recent call last):
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 390, in todoist_pipeline
+    error_handler = ErrorHandler(logger)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/tasks.py", line 1035, in __call__
+    return run_task(
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1576, in run_task
+    return run_task_sync(**kwargs)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1389, in run_task_sync
+    return engine.state if return_type == "state" else engine.result()
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 482, in result
+    raise self._raised
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 805, in run_context
+    yield self
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1387, in run_task_sync
+    engine.call_task_fn(txn)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 828, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/utilities/callables.py", line 208, in call_with_parameters
+    return fn(*args, **kwargs)
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 91, in initialize_services
+    gemini_service = GeminiService(
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/gemini_service.py", line 72, in __init__
+    self.safety_settings = env_config.get_gemini_safety_settings()
+AttributeError: 'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1316, in run_context
+    yield self
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1378, in run_flow_async
+    await engine.call_flow_fn()
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1330, in call_flow_fn
+    result = await call_with_parameters(self.flow.fn, self.parameters)
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 427, in todoist_pipeline
+    context = ErrorContext(
+UnboundLocalError: local variable 'error_handler' referenced before assignment
+2025-01-30 05:11:19,805 | INFO | prefect.flow_runs | Received non-final state 'AwaitingRetry' when proposing final state 'Failed' and will attempt to run again...
+2025-01-30 05:11:19,847 | DEBUG | prefect.engine | Received wait instruction for 30s: Scheduled time is in the future
+2025-01-30 05:11:49,886 | DEBUG | prefect.task_runner.threadpool | Stopping task runner
+2025-01-30 05:11:49,895 | DEBUG | prefect.task_runner.threadpool | Starting task runner
+2025-01-30 05:11:49,896 | INFO | prefect.flow_runs | Beginning flow run 'jasmine-slug' for flow 'todoist-pipeline'
+2025-01-30 05:11:49,896 | DEBUG | prefect.utilities.urls | No URL found for the Prefect UI, and no default base path provided.
+2025-01-30 05:11:49,896 | DEBUG | prefect.flow_runs | Executing flow 'todoist-pipeline' for flow run 'jasmine-slug'...
+2025-01-30 05:11:49,897 | INFO | prefect.flow_runs | Pipeline started: Initializing services...
+2025-01-30 05:11:49,915 | DEBUG | prefect.task_runs | Created task run 'initialize_services-8d2' for task 'initialize_services'
+2025-01-30 05:11:49,917 | DEBUG | prefect.task_runs | Executing task 'initialize_services' for task run 'initialize_services-8d2'...
+2025-01-30 05:11:49,920 | INFO | prefect.flow_runs | Current working directory: /Users/aorlando/Documents/aerith-ingestion/mvp/exp
+2025-01-30 05:11:49,921 | INFO | prefect.flow_runs | Environment Configuration:
+2025-01-30 05:11:49,921 | INFO | prefect.flow_runs | Environment variable 'TODOIST_API_TOKEN' found. Value: 54340781221a215e34dd307f59079c5bcb38d42f
+2025-01-30 05:11:49,921 | INFO | prefect.flow_runs | Environment variable 'GOOGLE_API_KEY' found. Value: AIzaSyDVzoMIr5rIUEIHyOtAR2BHeXqy4zyIIjk
+2025-01-30 05:11:49,921 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MODEL_NAME' found. Value: gemini-2.0-flash-exp
+2025-01-30 05:11:49,921 | INFO | prefect.flow_runs | Using Gemini model: gemini-2.0-flash-exp
+2025-01-30 05:11:49,921 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:11:49,922 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:11:49,922 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:11:49,922 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:11:49,922 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:11:49,922 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:11:49,922 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:11:49,922 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:11:49,922 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:11:49,922 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:11:49,922 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:11:49,922 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:11:49,923 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:11:49,923 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:11:49,923 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:11:49,923 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:11:49,923 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:11:49,923 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:11:49,923 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:11:49,923 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:11:49,924 | INFO | prefect.flow_runs | 
+==============================
+
+=== Relevant Environment Configuration ===
+TODOIST_API_TOKEN             : 5434****d42f
+GOOGLE_API_KEY                : AIza****IIjk
+GEMINI_MODEL_NAME             : gemini-2.0-flash-exp
+GEMINI_TEMPERATURE            : 0.3
+GEMINI_TOP_P                  : 0.9
+GEMINI_TOP_K                  : 50
+GEMINI_MAX_OUTPUT_TOKENS      : 256
+==============================
+
+2025-01-30 05:11:49,924 | INFO | prefect.flow_runs | Environment variable 'GOOGLE_API_KEY' found. Value: AIzaSyDVzoMIr5rIUEIHyOtAR2BHeXqy4zyIIjk
+2025-01-30 05:11:49,924 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MODEL_NAME' found. Value: gemini-2.0-flash-exp
+2025-01-30 05:11:49,925 | INFO | prefect.flow_runs | Using Gemini model: gemini-2.0-flash-exp
+2025-01-30 05:11:49,925 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TEMPERATURE' not set. Using default: 0.3
+2025-01-30 05:11:49,925 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_P' not set. Using default: 0.9
+2025-01-30 05:11:49,925 | INFO | prefect.flow_runs | Environment variable 'GEMINI_TOP_K' not set. Using default: 50
+2025-01-30 05:11:49,925 | INFO | prefect.flow_runs | Environment variable 'GEMINI_MAX_OUTPUT_TOKENS' found. Value: 256
+2025-01-30 05:11:49,925 | INFO | prefect.flow_runs | Gemini generation configuration: {'temperature': 0.3, 'top_p': 0.9, 'top_k': 50, 'max_output_tokens': 256}
+2025-01-30 05:11:49,925 | ERROR | prefect.task_runs | Task run failed with exception: AttributeError("'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'") - Retries are exhausted
+Traceback (most recent call last):
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 805, in run_context
+    yield self
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1387, in run_task_sync
+    engine.call_task_fn(txn)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 828, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/utilities/callables.py", line 208, in call_with_parameters
+    return fn(*args, **kwargs)
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 91, in initialize_services
+    gemini_service = GeminiService(
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/gemini_service.py", line 72, in __init__
+    self.safety_settings = env_config.get_gemini_safety_settings()
+AttributeError: 'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'
+2025-01-30 05:11:49,929 | ERROR | prefect.task_runs | Finished in state Failed("Task run encountered an exception AttributeError: 'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'")
+2025-01-30 05:11:49,930 | INFO | prefect.flow_runs | Pipeline execution completed.
+2025-01-30 05:11:49,930 | INFO | prefect.flow_runs | GEMINI_SERVICE METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+REQUEST_MANAGER METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+GTD_PROCESSOR METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+DATA_STORAGE METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+
+TODOIST_SERVICE METRICS:
+• Active Requests: 0
+• Throughput (1m): 0.0/min
+• Requests: 0
+• Cache Hit Rate: 0.0%
+• Errors: 0
+• Avg Processing Time: 0.00s
+2025-01-30 05:11:49,931 | ERROR | prefect.flow_runs | Encountered exception during execution: UnboundLocalError("local variable 'error_handler' referenced before assignment")
+Traceback (most recent call last):
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 390, in todoist_pipeline
+    error_handler = ErrorHandler(logger)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/tasks.py", line 1035, in __call__
+    return run_task(
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1576, in run_task
+    return run_task_sync(**kwargs)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1389, in run_task_sync
+    return engine.state if return_type == "state" else engine.result()
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 482, in result
+    raise self._raised
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 805, in run_context
+    yield self
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1387, in run_task_sync
+    engine.call_task_fn(txn)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 828, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/utilities/callables.py", line 208, in call_with_parameters
+    return fn(*args, **kwargs)
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 91, in initialize_services
+    gemini_service = GeminiService(
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/gemini_service.py", line 72, in __init__
+    self.safety_settings = env_config.get_gemini_safety_settings()
+AttributeError: 'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1316, in run_context
+    yield self
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1378, in run_flow_async
+    await engine.call_flow_fn()
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1330, in call_flow_fn
+    result = await call_with_parameters(self.flow.fn, self.parameters)
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 427, in todoist_pipeline
+    context = ErrorContext(
+UnboundLocalError: local variable 'error_handler' referenced before assignment
+2025-01-30 05:11:49,963 | INFO | prefect.flow_runs | Received non-final state 'AwaitingRetry' when proposing final state 'Failed' and will attempt to run again...
+2025-01-30 05:11:49,976 | DEBUG | prefect.engine | Received wait instruction for 30s: Scheduled time is in the future
+2025-01-30 05:11:58,200 | DEBUG | prefect.task_runner.threadpool | Stopping task runner
+2025-01-30 05:11:58,201 | ERROR | prefect.flow_runs | Crash detected! Execution was cancelled by the runtime environment.
+2025-01-30 05:11:58,201 | DEBUG | prefect.flow_runs | Crash details:
+Traceback (most recent call last):
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 390, in todoist_pipeline
+    error_handler = ErrorHandler(logger)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/tasks.py", line 1035, in __call__
+    return run_task(
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1576, in run_task
+    return run_task_sync(**kwargs)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1389, in run_task_sync
+    return engine.state if return_type == "state" else engine.result()
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 482, in result
+    raise self._raised
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 805, in run_context
+    yield self
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 1387, in run_task_sync
+    engine.call_task_fn(txn)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/task_engine.py", line 828, in call_task_fn
+    result = call_with_parameters(self.task.fn, parameters)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/utilities/callables.py", line 208, in call_with_parameters
+    return fn(*args, **kwargs)
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 91, in initialize_services
+    gemini_service = GeminiService(
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/gemini_service.py", line 72, in __init__
+    self.safety_settings = env_config.get_gemini_safety_settings()
+AttributeError: 'EnvironmentConfig' object has no attribute 'get_gemini_safety_settings'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1378, in run_flow_async
+    await engine.call_flow_fn()
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1330, in call_flow_fn
+    result = await call_with_parameters(self.flow.fn, self.parameters)
+  File "/Users/aorlando/Documents/aerith-ingestion/mvp/exp/main.py", line 427, in todoist_pipeline
+    context = ErrorContext(
+UnboundLocalError: local variable 'error_handler' referenced before assignment
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1252, in initialize_run
+    yield self
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1301, in start
+    yield
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1378, in run_flow_async
+    await engine.call_flow_fn()
+  File "/Users/aorlando/.pyenv/versions/3.9.6/lib/python3.9/contextlib.py", line 193, in __aexit__
+    await self.gen.athrow(typ, value, traceback)
+  File "/Users/aorlando/.pyenv/versions/aerith-mvp-notebook/lib/python3.9/site-packages/prefect/flow_engine.py", line 1321, in run_context
+    await self.handle_exception(exc)
+  File "/Users/aorlando/.pyenv/versions/3.9.6/lib/python3.9/asyncio/tasks.py", line 654, in sleep
+    return await future
+asyncio.exceptions.CancelledError
+2025-01-30 05:11:58,239 | ERROR | prefect.flow_runs | Finished in state Crashed('Execution was cancelled by the runtime environment.')
+2025-01-30 05:11:58,255 | INFO | prefect | Stopping temporary server on http://127.0.0.1:8189
